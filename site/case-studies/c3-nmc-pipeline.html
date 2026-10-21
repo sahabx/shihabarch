@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NMC-first: WhatsApp → Postgres Ingest Pipeline with Tailscale-Only Exposure — Mohammad Shahabuddin</title>
+<link rel="stylesheet" href="/assets/style.css"></head>
+<body>
+<nav><a href="/">MS</a> <a href="/case-studies/">Case Studies</a> <a href="/services.html">Services</a> <a href="/how-i-work.html">How I Work</a> <a href="/about.html">About</a> <a href="/ask.html">Ask my AI</a></nav>
+<main>
+<h1>NMC-first: WhatsApp → Postgres Ingest Pipeline with Tailscale-Only Exposure</h1><p class="meta">Discover Islam Society (New Muslim Care) · 2026-08 → present · pillars: data, systems, workflow</p><h1>C3 · NMC-first Pipeline (WhatsApp → Postgres)</h1>
+<h2>Facts</h2>
+<ul><li>QR-code linked-device login; realtime message capture for new-Muslim care operations.</li><li><strong>Security posture by design</strong>: Postgres never exposed to the public internet — reachable only via Tailscale; team + reporting scripts connect with a <strong>read-only role</strong>.</li><li><strong>Compliance guardrails baked in</strong> (documented in DEPLOY.md): read-only ingest (never sends messages), WhatsApp history sync disabled, passive presence (no online broadcast), exponential reconnect backoff, single bulk group sync + lazy metadata — explicitly <em>not</em> scraping; behaves as a normal WhatsApp Web linked device.</li><li>Operational maturity: versioned deployments with SQL backups at each milestone (<code>backup_pre_webhook_*.sql</code>), JOURNAL.md decision log, DEPLOY.md / WEBHOOKS.md runbooks.</li><li>Google Sheets synchronization layer so non-technical staff keep their existing interface while Postgres becomes the source of truth; sync debugging + full-system documentation (Oct 2026).</li><li>27 commits Aug 18 → Oct 14, 2026; still in active development.</li></ul>
+<h2>career_cut</h2>
+<p>Shows production discipline most portfolio projects lack: threat-model thinking (why Tailscale-only), platform-ToS-aware design (the guardrail list), backup-before-change habit, and documentation as a first-class deliverable. Also demonstrates explaining a full system's flow/logic/mapping to non-technical stakeholders.</p>
+<h2>Open items</h2>
+<ul><li>[VERIFY] publishable architecture diagram (the visualize-workflow pi session prototyped one).</li><li>[ ] Add message-volume metric if DIS approves.</li></ul>
+</main>
+<footer><p>Machine-readable: <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · markdown twin: append <code>.md</code> to any page path.</p>
+<p>Services &amp; engagements: Abqariyyah (coming soon).</p></footer>
+</body></html>

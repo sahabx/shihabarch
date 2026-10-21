@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Data-Platform Decision: Evaluating 4 Candidates, Forking Twenty, Adding Row-Level Security — Mohammad Shahabuddin</title>
+<link rel="stylesheet" href="/assets/style.css"></head>
+<body>
+<nav><a href="/">MS</a> <a href="/case-studies/">Case Studies</a> <a href="/services.html">Services</a> <a href="/how-i-work.html">How I Work</a> <a href="/about.html">About</a> <a href="/ask.html">Ask my AI</a></nav>
+<main>
+<h1>The Data-Platform Decision: Evaluating 4 Candidates, Forking Twenty, Adding Row-Level Security</h1><p class="meta">Discover Islam Society (Path to Peace operations) · 2026-09 (evaluation + fork); deployed · pillars: data, systems</p><h1>C2 · Data-Platform Decision + Twenty RLS Fork</h1>
+<h2>Facts</h2>
+<ul><li>Hard requirements (written as PROBLEM.md / REQUIREMENTS.md before any code):</li><li>ONE master record of every Individual — one table, one serial-number space, one source of truth.</li><li>Plain-SQL queryable for cross-country reporting.</li><li><strong>Row-level AND field-level permissions</strong>: which rows each agent sees, which fields each team edits.</li><li>Scale: ~100 internal agents, 5 campaigns in 5 countries, ~70,000 new individuals/year, mobile-first data entry.</li><li>Prior NocoDB attempt <strong>failed for a documented structural reason</strong> (free-tier permissions scope to bases/tables/views → false choice). Failure recorded, not hidden.</li><li>Per-candidate assessment files produced (nocodb-assessment.md, teable-assessment.md, twenty evaluation) + VERDICT.md + objective.md decision record with reversed decisions and risks.</li><li>Fork delta implemented in <code>twentyhq/twenty</code>:</li><li>community <strong>row-level security</strong> ("row rules" engine) reusing Twenty's access-policy pipeline (four same-named replacements in <code>engine/twenty-orm/utils/our-rls/</code>),</li><li>Settings → Row-rules admin UI,</li><li>telemetry gate + white-label.</li><li>Shipped as Docker image (<code>shahabu/p2p-data-fork</code>), deployed to Hostinger VPS behind Traefik, custom domain; data migration scripts prepared separately (p2p-data-prep) so tooling never mixes with the fork repo.</li></ul>
+<h2>career_cut</h2>
+<p>The strongest engineering-judgment artifact in the portfolio: a real architecture decision record, a failed first attempt analyzed to root cause, four candidates evaluated against written requirements, and a minimal-risk fork strategy (same-named module replacement instead of invasive patches). Bonus: AI-agent-assisted development with journal-first workflow and token-budgeted task lists.</p>
+<h2>Open items</h2>
+<ul><li>[VERIFY] whether the RLS patch can be open-sourced as a standalone repo/PR (strongest possible proof).</li><li>[VERIFY] the ~100 agents / ~70k individuals figures for public use.</li></ul>
+</main>
+<footer><p>Machine-readable: <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · markdown twin: append <code>.md</code> to any page path.</p>
+<p>Services &amp; engagements: Abqariyyah (coming soon).</p></footer>
+</body></html>

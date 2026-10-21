@@ -1,0 +1,95 @@
+{
+  "$schema": "./profile.schema-note.md",
+  "meta": {
+    "version": "0.1.0",
+    "updated": "2026-10-21",
+    "status": "draft",
+    "note": "Canonical structured facts. Human pages, llms.txt and the /ask RAG all derive from this file + case-studies/. Numbers marked [VERIFY] need confirmation before publishing."
+  },
+  "person": {
+    "name": "Mohammad Shahabuddin",
+    "headline_candidates": [
+      "AI & Systems Consultant — I help businesses adopt AI and bring order to their data, workflows, and infrastructure.",
+      "Fractional IT & AI Lead",
+      "Virtual CTO for SMEs & NGOs",
+      "End-to-end technology partner: AI adoption · Data · Workflow · Systems"
+    ],
+    "headline_chosen": null,
+    "location": "Bahrain",
+    "languages": ["English (full professional)", "Bengali (native)", "Urdu (professional)", "Arabic (limited working)", "Hindi (limited)"],
+    "links": {
+      "github": "https://github.com/Sahabx",
+      "site": "https://shihabarch.tech",
+      "business": "Abqariyyah (domain TBD)",
+      "linkedin": "[VERIFY — add or omit]",
+      "email": "[ADD before deploy]"
+    }
+  },
+  "roles": [
+    {
+      "org": "Discover Islam Society",
+      "title": "IT Infrastructure & Solutions Specialist",
+      "location": "Bahrain",
+      "start": "2024-11",
+      "end": null,
+      "note": "Promoted 3× in under two years. Owns all data operations and IT infrastructure.",
+      "referenceable": true
+    },
+    {
+      "org": "LMRA Expat Protection Center",
+      "title": "BPO Agent (multilingual)",
+      "location": "North Sehla, Bahrain",
+      "start": "2020-06",
+      "end": "2024-10",
+      "note": "Client↔official communication in multiple languages; real-time translation (in person + phone); CRM reporting."
+    },
+    {
+      "org": "Manara Media W.L.L.",
+      "title": "Computer Programmer",
+      "location": "Muharraq, Bahrain",
+      "start": "2018-11",
+      "end": "2020-02",
+      "note": "Google Apps Script automation of HR/ops; G-Suite admin; Google APIs."
+    }
+  ],
+  "education": [
+    {"org": "Chittagong Polytechnic Institute", "award": "Diploma in Computer Engineering", "start": "2013-01", "end": "2017-12"},
+    {"org": "International Open University", "award": "BSc IT coursework (discontinued for professional work)", "start": "2021-03", "end": "2023"}
+  ],
+  "service_pillars": [
+    {"id": "ai-adoption", "name": "AI Adoption", "desc": "Chatbots & automation (Dify, Botpress), transcription, translation bots, LLM integration into existing tools."},
+    {"id": "data", "name": "Data", "desc": "CRM deployment & migration off spreadsheets, dashboards, dedup/normalization across countries, row-level security."},
+    {"id": "workflow", "name": "Workflow", "desc": "n8n automation, process design, mobile-first data entry, cross-team operations."},
+    {"id": "systems", "name": "Systems", "desc": "Self-hosted infrastructure, Docker/VPS deployment, backups & disaster recovery, data sovereignty."}
+  ],
+  "engagement_modes": ["Project (build it)", "Consultancy (advise/audit)", "Maintenance (retainer: keep it running)"],
+  "metrics": [
+    {"id": "conversations", "value": 525301, "label": "conversations/leads generated across 20+ countries (2 yrs, FB+TikTok ops)", "verify": false},
+    {"id": "contacts", "value": 44542, "label": "individuals shared contact details / expressed interest", "verify": false},
+    {"id": "reach", "value": "≈800,000/month", "label": "average monthly campaign reach, 3,000 BHD managed budget", "verify": false},
+    {"id": "saved_bhd", "value": 8000, "label": "BHD saved by replacing proprietary systems with open-source self-hosted stack", "verify": false},
+    {"id": "saved_usd_yr", "value": 3000, "label": "USD/year recurring SaaS subscriptions eliminated", "verify": false},
+    {"id": "countries", "value": "20+", "label": "countries served by campaign + data operations", "verify": false},
+    {"id": "agents", "value": "≈100", "label": "internal agents supported by the data platform (5 campaigns, 5 countries)", "verify": true},
+    {"id": "individuals_yr", "value": "≈70,000/yr", "label": "new individual records ingested by the master-data platform", "verify": true},
+    {"id": "promotions", "value": "3× in <2 years", "label": "promotions with pay raises", "verify": false},
+    {"id": "downtime", "value": "zero extended", "label": "operations revived after Facebook credential block via big-tech diversification", "verify": false}
+  ],
+  "stack": {
+    "infra": ["Linux", "Bash", "Docker & Compose", "VPS (Hostinger, Contabo, DigitalOcean)", "Traefik", "Tailscale", "Kubernetes (learning→deployed chatwoot scenario)"],
+    "data": ["PostgreSQL", "NocoDB", "Twenty (forked: RLS engine)", "Grafana", "Google Sheets→structured-DB migrations", "OpenRefine"],
+    "apps": ["Chatwoot (bare-metal + customized)", "n8n", "Botpress", "Dify", "Next.js", "Node.js", "Cloudflare Pages/Workers"],
+    "ai": ["LLM integration (Deepseek, Qwen, Ollama)", "WhisperX / faster-whisper transcription", "Qwen TTS/ASR", "RAG", "pi coding agent (journal-first AI workflows)"],
+    "apis": ["Facebook Marketing/Messenger API (custom app approved)", "TikTok Business API", "WhatsApp Business API", "Eazypay payment gateway", "Google APIs / Apps Script"]
+  },
+  "case_studies": ["c1-omnichannel-stack", "c2-data-platform-rls", "c3-nmc-pipeline", "c4-cost-sovereignty", "c5-marketing-data-ops", "c6-realtime-language-ai"],
+  "how_i_work": {
+    "principles": [
+      "Journal-first engineering: every project starts with a written journal; brainstorm, agree, then build.",
+      "Evaluate → fork → white-label → deploy: requirements doc, per-candidate assessments, verdict, then surgical customization.",
+      "Failure preservation: failed attempts are kept and documented (e.g. 'Failed CCA App'), reversed decisions recorded.",
+      "Data sovereignty by default: self-hosted, permissively licensed, no per-seat SaaS lock-in.",
+      "AI as cognitive extension: AI agents used across the whole lifecycle — research, build, docs, QA."
+    ]
+  }
+}
