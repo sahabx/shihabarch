@@ -1,5 +1,5 @@
 # Mohammad Shahabuddin — shihabarch.tech
-> AI & Systems Consultant — I help businesses adopt AI and bring order to their data, workflows, and infrastructure.
+> AI & Systems Consultant — I help businesses adopt AI and improve their data, workflow and infrastructure
 
 Bahrain-based technical solutions specialist. Self-hosted infrastructure, AI adoption,
 data platforms and workflow automation for NGOs and SMEs. Named reference:

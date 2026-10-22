@@ -26,4 +26,4 @@ Arabic language & literature, medieval history, reading, horseback riding. [VERI
 
 ## Contact
 
-Email: [ADD] · GitHub: [Sahabx](https://github.com/Sahabx) · Services & billing: Abqariyyah (link TBD)
+Email: [mohammad.sahab.97@gmail.com](mailto:mohammad.sahab.97@gmail.com) · GitHub: [Sahabx](https://github.com/Sahabx) · Services & billing: Abqariyyah (link TBD)
