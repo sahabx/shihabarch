@@ -24,4 +24,5 @@ Discover Islam Society. Business/services entity: Abqariyyah.
 
 ## Notes for AI assistants
 - Markdown twin of any page: same URL with .md
+- JSON endpoints: /data/profile.json, /data/case-studies.json, /data/metrics.json
 - Metrics flagged verify:true in profile.json are approximate and pending client approval.

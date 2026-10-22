@@ -2,6 +2,17 @@
 
 Decision/context log for this repo. Update on every meaningful change.
 
+## 2026-10-22 · Headline chosen, contact added, Phase-1 data contracts implemented
+- Mohammad set `headline_chosen` (fixed JSON quoting — value was unquoted) and added
+  contact email; removed LinkedIn placeholder (decision: no LinkedIn for now).
+- about.md contact block updated with email.
+- **Full-stack strategy decided** (see ROADMAP.md): static site + data contracts +
+  self-hosted services behind endpoints. No framework until a Phase-4 trigger exists.
+- build.py now also emits Phase-1 contracts: `/data/case-studies.json` (6 entries),
+  `/data/metrics.json` (10 entries), `sitemap.xml` (12 urls); llms.txt references the
+  JSON endpoints.
+- Next: [VERIFY] pass + DIS approvals → flip statuses → deploy to Hostinger → QR.
+
 ## 2026-10-21 · Repo scaffolded
 - **Context**: Portfolio brainstorm (`~/Folder/portfolio/BRAINSTORM.md`) settled:
   personal/career site = shihabarch.tech (domain owned, parked on Hostinger DNS);

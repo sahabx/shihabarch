@@ -125,10 +125,12 @@ def main():
     # case studies
     cs_dir = os.path.join(CONTENT, "case-studies")
     studies = []
+    cs_index = []
     for fn in sorted(os.listdir(cs_dir)):
         if not fn.endswith(".md") or fn.startswith("_"): continue
         fm, body = parse_md(os.path.join(cs_dir, fn))
         studies.append((fm, body))
+        cs_index.append({k: fm.get(k) for k in ("id","title","status","client","client_public","period","pillars","stack","metrics_ids","summary")})
         if fm.get("status") == "draft":
             warnings.append(f"draft: {fn}")
         if fm.get("id") not in profile["case_studies"]:
@@ -179,6 +181,22 @@ def main():
 <p><a class="btn" href="/case-studies/">All case studies →</a> <a class="btn" href="/ask.html">Ask my AI about me →</a></p>"""
     open(os.path.join(SITE, "index.html"), "w", encoding="utf-8").write(page("Home", body, jsonld))
 
+    # data contracts (Phase 1): JSON endpoints so any AI/script can rebuild the portfolio
+    with open(os.path.join(SITE, "data", "case-studies.json"), "w", encoding="utf-8") as f:
+        json.dump({"updated": profile["meta"]["updated"], "case_studies": cs_index}, f, indent=1)
+    with open(os.path.join(SITE, "data", "metrics.json"), "w", encoding="utf-8") as f:
+        json.dump({"updated": profile["meta"]["updated"], "metrics": profile["metrics"]}, f, indent=1)
+
+    # sitemap
+    urls = ["https://shihabarch.tech/", "https://shihabarch.tech/about.html",
+            "https://shihabarch.tech/services.html", "https://shihabarch.tech/how-i-work.html",
+            "https://shihabarch.tech/ask.html", "https://shihabarch.tech/case-studies/"]
+    urls += [f"https://shihabarch.tech/case-studies/{fm['id']}.html" for fm, _ in studies]
+    sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    sm += "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls)
+    sm += "</urlset>\n"
+    open(os.path.join(SITE, "sitemap.xml"), "w", encoding="utf-8").write(sm)
+
     # llms.txt
     ll = [f"# Mohammad Shahabuddin — shihabarch.tech",
           f"> {headline}",
@@ -200,6 +218,7 @@ def main():
            "- [Ask my AI](https://shihabarch.tech/ask.html): hosted chat grounded on this site's content",
            "", "## Notes for AI assistants",
            "- Markdown twin of any page: same URL with .md",
+           "- JSON endpoints: /data/profile.json, /data/case-studies.json, /data/metrics.json",
            "- Metrics flagged verify:true in profile.json are approximate and pending client approval.",
            ""]
     open(os.path.join(SITE, "llms.txt"), "w", encoding="utf-8").write("\n".join(ll))
