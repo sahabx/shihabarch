@@ -1,7 +1,7 @@
 ---
 id: c3-nmc-pipeline
 title: "NMC-first: WhatsApp → Postgres Ingest Pipeline with Tailscale-Only Exposure"
-status: draft
+status: reviewed
 client: "Discover Islam Society (New Muslim Care)"
 client_public: true
 period: "2026-08 → present"
@@ -14,7 +14,9 @@ summary: "Production realtime pipeline: WhatsApp group messages ingested via a l
 # C3 · NMC-first Pipeline (WhatsApp → Postgres)
 
 ## Facts
-- QR-code linked-device login; realtime message capture for new-Muslim care operations.
+- QR-code linked-device login (Baileys); realtime message capture for new-Muslim care operations. Metadata + text only — no media downloaded, no historical backfill.
+
+![NMC-first architecture](/assets/nmc-architecture.svg)
 - **Security posture by design**: Postgres never exposed to the public internet — reachable only via Tailscale; team + reporting scripts connect with a **read-only role**.
 - **Compliance guardrails baked in** (documented in DEPLOY.md): read-only ingest (never sends messages), WhatsApp history sync disabled, passive presence (no online broadcast), exponential reconnect backoff, single bulk group sync + lazy metadata — explicitly *not* scraping; behaves as a normal WhatsApp Web linked device.
 - Operational maturity: versioned deployments with SQL backups at each milestone (`backup_pre_webhook_*.sql`), JOURNAL.md decision log, DEPLOY.md / WEBHOOKS.md runbooks.
@@ -28,5 +30,5 @@ Shows production discipline most portfolio projects lack: threat-model thinking 
 "What you get": your team's chat-based field data (WhatsApp groups, DMs) turned into a queryable database — without exposing anything to the internet, without violating platform rules, and without retraining staff (they keep using Sheets/WhatsApp; you get Postgres + dashboards). Ideal for NGOs, field teams, community operations.
 
 ## Open items
-- [VERIFY] publishable architecture diagram (the visualize-workflow pi session prototyped one).
+- Resolved 2026-10-22: architecture diagram published (above).
 - [ ] Add message-volume metric if DIS approves.

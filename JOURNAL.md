@@ -38,3 +38,19 @@ Decision/context log for this repo. Update on every meaningful change.
   6. Stand up Dify chatflow on VPS with KB = site/*.md + profile.json; embed into ask.html.
   7. Flip statuses → published; regenerate sitemap.xml (TODO in build.py).
 - **Deliberately not done**: no analytics yet, no sitemap generation yet, no CI.
+
+## 2026-10-22 (2) · Verification round complete — all case studies reviewed
+- Mohammad answered all 8 verification questions:
+  1. ~100 agents / ~70k individuals/yr → approved (verify:false)
+  2. Twenty RLS fork → stays PRIVATE; evidence = decision records + admin-UI screenshots
+  3. NMC architecture diagram → hand-built SVG published (site/assets/nmc-architecture.svg, embedded in C3)
+  4. 8,000 BHD story detailed: contractor quote stopped; 4 integrated systems (Chatwoot,
+     CRM [NocoDB→Twenty], custom mobile app, Grafana) + n8n/scripts for 100 BHD/yr VPS
+  5. Screenshots: Mohammad will capture n8n/Chatwoot/Twenty/custom app (Grafana down) —
+     shot-list in site/assets/screenshots/README.md
+  6. NO DIS testimonial (they're not comfortable with him seeking opportunity outside)
+     ⚠ flag raised: consider anonymizing DIS on the career site while employed — his call
+  7. Campaign numbers = his own pitch work, free to publish
+  8. Hobbies removed from about.md
+- All statuses flipped draft → reviewed. Build clean, zero warnings.
+- Next: deploy to Hostinger; screenshots; QR. Abqariyyah repo scaffolded in parallel.

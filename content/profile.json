@@ -69,8 +69,8 @@
     {"id": "saved_bhd", "value": 8000, "label": "BHD saved by replacing proprietary systems with open-source self-hosted stack", "verify": false},
     {"id": "saved_usd_yr", "value": 3000, "label": "USD/year recurring SaaS subscriptions eliminated", "verify": false},
     {"id": "countries", "value": "20+", "label": "countries served by campaign + data operations", "verify": false},
-    {"id": "agents", "value": "≈100", "label": "internal agents supported by the data platform (5 campaigns, 5 countries)", "verify": true},
-    {"id": "individuals_yr", "value": "≈70,000/yr", "label": "new individual records ingested by the master-data platform", "verify": true},
+    {"id": "agents", "value": "≈100", "label": "internal agents supported by the data platform (5 campaigns, 5 countries)", "verify": false},
+    {"id": "individuals_yr", "value": "≈70,000/yr", "label": "new individual records ingested by the master-data platform", "verify": false},
     {"id": "promotions", "value": "3× in <2 years", "label": "promotions with pay raises", "verify": false},
     {"id": "downtime", "value": "zero extended", "label": "operations revived after Facebook credential block via big-tech diversification", "verify": false}
   ],

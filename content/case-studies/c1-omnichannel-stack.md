@@ -1,7 +1,7 @@
 ---
 id: c1-omnichannel-stack
 title: "Self-Hosted Omnichannel Stack for Multi-Country Outreach"
-status: draft
+status: reviewed
 client: "Discover Islam Society"
 client_public: true
 period: "2024-11 → present"
@@ -29,5 +29,5 @@ The story of ownership: no dev team, no SaaS budget — one person taking a mult
 "What you get": a communication + CRM backbone your organization owns — no per-seat fees, no vendor kill-switch, data stays on infrastructure you control. Proven at: 525,301 conversations, 44,542 contacts, 20+ countries, ~800k monthly reach. Reference: Discover Islam Society (nameable).
 
 ## Open items
-- [VERIFY] screenshots/mockups of Grafana dashboards + Chatwoot inbox (recreate with real aggregate numbers if originals can't be shown).
-- [VERIFY] one-line DIS testimonial.
+- Screenshots to capture (see `site/assets/screenshots/README.md`): Chatwoot inbox, n8n workflow canvas, custom agent app. Grafana currently down — capture when restored.
+- Resolved 2026-10-22: campaign numbers are my own work/pitch — no permission needed. ~~DIS testimonial~~ — not pursuing.

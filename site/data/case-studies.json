@@ -4,7 +4,7 @@
   {
    "id": "c1-omnichannel-stack",
    "title": "Self-Hosted Omnichannel Stack for Multi-Country Outreach",
-   "status": "draft",
+   "status": "reviewed",
    "client": "Discover Islam Society",
    "client_public": true,
    "period": "2024-11 \u2192 present",
@@ -43,7 +43,7 @@
   {
    "id": "c2-data-platform-rls",
    "title": "The Data-Platform Decision: Evaluating 4 Candidates, Forking Twenty, Adding Row-Level Security",
-   "status": "draft",
+   "status": "reviewed",
    "client": "Discover Islam Society (Path to Peace operations)",
    "client_public": true,
    "period": "2026-09 (evaluation + fork); deployed",
@@ -72,7 +72,7 @@
   {
    "id": "c3-nmc-pipeline",
    "title": "NMC-first: WhatsApp \u2192 Postgres Ingest Pipeline with Tailscale-Only Exposure",
-   "status": "draft",
+   "status": "reviewed",
    "client": "Discover Islam Society (New Muslim Care)",
    "client_public": true,
    "period": "2026-08 \u2192 present",
@@ -95,7 +95,7 @@
   {
    "id": "c4-cost-sovereignty",
    "title": "Cost & Sovereignty Audit: 8,000 BHD Saved, $3k/yr SaaS Eliminated, Zero Extended Downtime in a Platform Crisis",
-   "status": "draft",
+   "status": "reviewed",
    "client": "Discover Islam Society",
    "client_public": true,
    "period": "2024-11 \u2192 present",
@@ -113,12 +113,12 @@
     "saved_usd_yr",
     "downtime"
    ],
-   "summary": "Transition from proprietary systems and SaaS subscriptions to a self-hosted open-source stack, plus a big-tech diversification strategy that kept operations running when Facebook blocked management credentials."
+   "summary": "A contractor quoted 8,000 BHD for a basic custom omnichannel platform. I stopped the deal and delivered four integrated systems \u2014 Chatwoot, CRM, custom mobile app, Grafana \u2014 for 100 BHD/year of VPS cost. Plus a big-tech diversification strategy that kept operations running when Facebook blocked management credentials."
   },
   {
    "id": "c5-marketing-data-ops",
    "title": "Marketing Data Operations: From Campaign Chaos to Country-Level Dashboards",
-   "status": "draft",
+   "status": "reviewed",
    "client": "Discover Islam Society",
    "client_public": true,
    "period": "2025-04 \u2192 present",
@@ -147,7 +147,7 @@
   {
    "id": "c6-realtime-language-ai",
    "title": "Realtime Language AI: Translation & Transcription Pipelines Built on a Decade of Multilingual Fieldwork",
-   "status": "draft",
+   "status": "reviewed",
    "client": "personal R&D + Discover Islam Society applications",
    "client_public": true,
    "period": "2026 (tooling), rooted in 2020\u20132024 field experience",

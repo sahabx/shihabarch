@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" font-family="system-ui,Segoe UI,Roboto,sans-serif">
+  <style>
+    .box{fill:#161b26;stroke:#2a3140;rx:10}
+    .vps{fill:#111827;stroke:#3b82f6;stroke-dasharray:6 4}
+    .ts{fill:#0f1f1a;stroke:#10b981;stroke-dasharray:4 4}
+    .t{fill:#d7dce4;font-size:14px}
+    .s{fill:#8b93a3;font-size:11px}
+    .b{fill:#5aa7ff;font-size:14px;font-weight:600}
+    .arw{stroke:#5aa7ff;stroke-width:2;fill:none;marker-end:url(#a)}
+    .arwg{stroke:#10b981;stroke-width:2;fill:none;marker-end:url(#g)}
+    .arwr{stroke:#ef4444;stroke-width:2;fill:none;stroke-dasharray:5 4;marker-end:url(#r)}
+  </style>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5aa7ff"/></marker>
+    <marker id="g" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#10b981"/></marker>
+    <marker id="r" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#ef4444"/></marker>
+  </defs>
+
+  <text x="20" y="30" class="b">NMC-first · WhatsApp → Postgres ingest pipeline</text>
+  <text x="20" y="48" class="s">Docker on VPS · nothing database-related touches the public internet</text>
+
+  <!-- phone -->
+  <rect x="20" y="120" width="130" height="180" rx="16" class="box"/>
+  <text x="85" y="150" text-anchor="middle" class="t">📱 WhatsApp</text>
+  <text x="85" y="172" text-anchor="middle" class="s">field groups</text>
+  <text x="85" y="230" text-anchor="middle" class="s">linked device</text>
+  <text x="85" y="248" text-anchor="middle" class="s">(QR pairing,</text>
+  <text x="85" y="266" text-anchor="middle" class="s">passive: never</text>
+  <text x="85" y="284" text-anchor="middle" class="s">sends, no history</text>
+
+  <!-- VPS boundary -->
+  <rect x="200" y="80" width="500" height="330" rx="12" class="vps"/>
+  <text x="215" y="105" class="b" fill="#3b82f6">VPS (Docker Compose)</text>
+
+  <!-- pipeline -->
+  <rect x="225" y="130" width="190" height="110" rx="10" class="box"/>
+  <text x="320" y="160" text-anchor="middle" class="t">pipeline container</text>
+  <text x="320" y="182" text-anchor="middle" class="s">Node.js + Baileys</text>
+  <text x="320" y="200" text-anchor="middle" class="s">realtime ingest ≈1s</text>
+  <text x="320" y="218" text-anchor="middle" class="s">metadata + text only</text>
+
+  <!-- postgres -->
+  <rect x="480" y="130" width="190" height="110" rx="10" class="box"/>
+  <text x="575" y="160" text-anchor="middle" class="t">PostgreSQL</text>
+  <text x="575" y="182" text-anchor="middle" class="s">messages, chats, senders</text>
+  <text x="575" y="200" text-anchor="middle" class="s">read-only role for</text>
+  <text x="575" y="218" text-anchor="middle" class="s">team &amp; reporting</text>
+
+  <!-- tailscale -->
+  <rect x="225" y="290" width="445" height="95" rx="10" class="ts"/>
+  <text x="447" y="318" text-anchor="middle" class="t" fill="#10b981">Tailscale sidecar (private mesh network)</text>
+  <text x="447" y="340" text-anchor="middle" class="s">only path to Postgres — no public DB port, no exposed admin</text>
+  <text x="447" y="358" text-anchor="middle" class="s">auth-key enrolled · team devices join the tailnet</text>
+
+  <!-- sheets sync -->
+  <rect x="755" y="130" width="180" height="110" rx="10" class="box"/>
+  <text x="845" y="160" text-anchor="middle" class="t">Google Sheets</text>
+  <text x="845" y="182" text-anchor="middle" class="s">sync layer — staff keep</text>
+  <text x="845" y="200" text-anchor="middle" class="s">their existing interface;</text>
+  <text x="845" y="218" text-anchor="middle" class="s">Postgres = source of truth</text>
+
+  <!-- consumers -->
+  <rect x="755" y="290" width="180" height="95" rx="10" class="box"/>
+  <text x="845" y="318" text-anchor="middle" class="t">Team &amp; reports</text>
+  <text x="845" y="340" text-anchor="middle" class="s">read-only SQL over</text>
+  <text x="845" y="358" text-anchor="middle" class="s">Tailscale · dashboards</text>
+
+  <!-- arrows -->
+  <path class="arw" d="M150,200 H225"/>
+  <path class="arw" d="M415,185 H480"/>
+  <path class="arwg" d="M670,200 C710,200 715,190 755,185"/>
+  <path class="arwg" d="M670,220 C700,260 700,300 755,330"/>
+  <path class="arwr" d="M575,240 V290"/>
+  <text x="590" y="270" class="s" fill="#ef4444">public internet ✕ blocked</text>
+</svg>

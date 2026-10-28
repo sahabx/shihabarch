@@ -1,6 +1,6 @@
 ---
 title: How I Work
-status: draft
+status: reviewed
 ---
 
 # How I Work

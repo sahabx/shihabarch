@@ -1,13 +1,13 @@
 ---
 title: About
-status: draft
+status: reviewed
 ---
 
 # About
 
 Mohammad Shahabuddin — Bahrain-based technical solutions specialist.
 
-One line (draft): *I help businesses adopt AI and bring order to their data, workflows, and systems.* [VERIFY: pick final headline from profile.json candidates]
+One line: *AI & Systems Consultant — I help businesses adopt AI and improve their data, workflow and infrastructure.*
 
 ## The arc (keep short — 4 sentences max on the live page)
 
@@ -19,10 +19,6 @@ Programmer automating HR/ops with Google Apps Script (2018) → multilingual BPO
 - **Sovereignty**: self-hosted, permissively licensed, data stays with the organization.
 - **Evidence**: quantified outcomes (8,000 BHD saved, $3k/yr SaaS eliminated, 525k conversations, 20+ countries), named reference client, and published decision records — including failures.
 - **AI-native**: AI agents used across the full lifecycle; this very site is queryable by your AI (see /llms.txt).
-
-## Off-hours
-
-Arabic language & literature, medieval history, reading, horseback riding. [VERIFY keep/trim]
 
 ## Contact
 

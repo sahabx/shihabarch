@@ -41,13 +41,13 @@
    "id": "agents",
    "value": "\u2248100",
    "label": "internal agents supported by the data platform (5 campaigns, 5 countries)",
-   "verify": true
+   "verify": false
   },
   {
    "id": "individuals_yr",
    "value": "\u224870,000/yr",
    "label": "new individual records ingested by the master-data platform",
-   "verify": true
+   "verify": false
   },
   {
    "id": "promotions",

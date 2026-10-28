@@ -1,7 +1,7 @@
 ---
 id: c6-realtime-language-ai
 title: "Realtime Language AI: Translation & Transcription Pipelines Built on a Decade of Multilingual Fieldwork"
-status: draft
+status: reviewed
 client: "personal R&D + Discover Islam Society applications"
 client_public: true
 period: "2026 (tooling), rooted in 2020–2024 field experience"

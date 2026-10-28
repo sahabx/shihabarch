@@ -1,6 +1,6 @@
 ---
 title: Services
-status: draft
+status: reviewed
 note: "Shared asset: shihabarch renders the career angle ('what I can do'); Abqariyyah renders the offer angle ('packages + pricing + booking'). Same facts, two cuts."
 ---
 

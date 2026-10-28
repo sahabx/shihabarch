@@ -1,7 +1,7 @@
 ---
 id: c2-data-platform-rls
 title: "The Data-Platform Decision: Evaluating 4 Candidates, Forking Twenty, Adding Row-Level Security"
-status: draft
+status: reviewed
 client: "Discover Islam Society (Path to Peace operations)"
 client_public: true
 period: "2026-09 (evaluation + fork); deployed"

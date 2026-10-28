@@ -1,7 +1,7 @@
 ---
 id: c5-marketing-data-ops
 title: "Marketing Data Operations: From Campaign Chaos to Country-Level Dashboards"
-status: draft
+status: reviewed
 client: "Discover Islam Society"
 client_public: true
 period: "2025-04 → present"
@@ -30,5 +30,5 @@ Bridges the marketing and engineering identities: the same person who wrote a ci
 "What you get": your campaigns produce data in five platforms and three spreadsheets; you get one clean database, honest conversion numbers per campaign/country, and dashboards your team actually opens. Includes the migration itself — no 'new tool, old habits' trap.
 
 ## Open items
-- [VERIFY] which campaign visuals/numbers DIS permits publishing.
-- [ ] Decide if the HK blueprint is public (it's client-adjacent work; also a great writing sample).
+- Resolved 2026-10-22: campaign numbers/visuals are my own pitch work — free to publish.
+- [ ] Decide if the HK blueprint is published as a writing sample.
