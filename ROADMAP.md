@@ -6,11 +6,11 @@ an endpoint. No rewrite ever needed — the contracts are the groundwork.
 
 ## Phase 0 — v0.1 live (this week)
 - [x] Content scaffolded, headline chosen, contact email in
-- [ ] Human pass on `[VERIFY]` items + DIS approvals (metrics, testimonial, screenshots)
-- [ ] Flip case studies `draft` → `reviewed` as verified
-- [ ] Deploy `site/` to Hostinger (zip → public_html). Test: `/llms.txt`, `/data/profile.json`, `.md` twins all serve with correct MIME
-- [ ] Generate QR (`qr/README.md`) → add to CV PDF
-- Exit criteria: a recruiter can scan the CV and land on a real site.
+- [x] Human pass on `[VERIFY]` items + DIS approvals (done 2026-10-22 — no testimonial; DIS named only as referenceable)
+- [x] Flip case studies `draft` → `reviewed` as verified
+- [ ] Upload `dist/shihabarch-site.zip` to Hostinger public_html. Test: `/llms.txt`, `/data/profile.json`, `.md` twins all serve with correct MIME
+- [x] Generate QR (`qr/`) → add to CV PDF (PNG/SVG generated; placing on the PDF is manual)
+- Exit criteria: a recruiter can scan the CV and land on a real site. ✅ (pending upload only)
 
 ## Phase 1 — data contracts complete (v0.2)
 The groundwork for *any* future full-stack feature is: every fact exists as JSON.
@@ -22,19 +22,27 @@ The groundwork for *any* future full-stack feature is: every fact exists as JSON
 
 ## Phase 2 — first services (v0.3, the "full-stack" starts here)
 Each service = one Docker container on the VPS behind Traefik, exposed at shihabarch.tech/*:
-- [ ] `/ask` chat: **Dify** chatflow (already operated in Jul 2026), KB = `site/*.md` + `/data/*.json`; embed replaces ask.html placeholder; log scans via `?src=cv-qr`
-- [ ] `/api/ask`: OpenAI-compatible thin wrapper over the same Dify app (stretch — big differentiator for AI-savvy visitors)
-- [ ] Contact form → **n8n** webhook (already in stack) → email + NocoDB row. Static form, dynamic backend, zero site rewrite.
-- [ ] Booking: **Cal.com self-hosted** at `/book` — becomes the Abqariyyah consultation funnel too
-- Exit criteria: chat, form, and booking work while the site itself is still static files.
+- [x] `/ask` chat — **DONE 2026-11-07, simpler than planned**: instead of a separate Dify chatflow,
+  the Abqariyyah Next.js app serves `POST /api/chat` (grounded RAG, BM25 retrieval + OpenAI-compatible
+  LLM, DeepSeek default). ask.html calls it cross-origin (CORS_ORIGINS). Local in-browser retrieval
+  fallback means the page is never broken. Dify can still replace it later — the endpoint contract
+  (`POST {question, site, source} → {answer, sources[]}`) stays the same.
+- [x] Chat logging — `chat_log` table in Abqariyyah's SQLite (`site`, `question`, `answer`, `source` incl. cv-qr scans)
+- [ ] Set `CHAT_API_URL` in site/ask.html once the Abqariyyah domain resolves → re-zip & re-upload
+- [ ] Contact form → n8n webhook or Abqariyyah `/api/contact` (NOTIFY_URL) — optional, email already works
+- [ ] Booking: Cal.com self-hosted at `/book` — becomes the Abqariyyah consultation funnel too
+- Exit criteria: chat, form, and booking work while the site itself is still static files. (chat ✅)
 
 ## Phase 3 — Abqariyyah site (parallel track, reuses everything)
-- [ ] Buy domain (`.com` primary; `.bh` if WLL path chosen)
-- [ ] New repo `abqariyyah/` — SAME pipeline: `content/` → build → `site/`; case studies render their `business_cut` sections (build.py flag: `--cut=business`)
-- [ ] Pages: offer, 4 pillars, packages (project/consultancy/maintenance), proof (DIS named), process, `/book` (same Cal.com)
-- [ ] Legal: freelance permit vs WLL decision → footer CR/permit number
+- [x] **DONE 2026-11-07 — rebuilt as a full-stack Next.js app** (per explicit decision: business site =
+  full-stack foundation for future features). See `../abqariyyah/`: App Router pages, SQLite + migrations,
+  `/api/chat` (serves both sites), `/api/contact` (leads table + optional n8n webhook), `/api/health`,
+  Dockerfile (standalone) + docker-compose with Traefik labels. Case studies still edited HERE and synced
+  via `npm run sync` (content/shared).
+- [ ] Buy domain → update `content/business.json` → brand.domain + Traefik Host rule → deploy
+- [ ] Legal: freelance permit vs WLL decision → footer CR/permit number (brand.legal.cr_number)
 - [ ] Billing when first client signs: **Invoice Ninja** self-hosted (or PayPal-only per phase-1 research if foreign clients)
-- Exit criteria: one content source feeds two brands with two cuts.
+- Exit criteria: one content source feeds two brands with two cuts. ✅ (deployment pending domain)
 
 ## Phase 4 — real full-stack (only when a feature demands it)
 Triggers, not dates:

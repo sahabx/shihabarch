@@ -1,9 +1,21 @@
 # QR assets for the CV
 
-Generate AFTER first deploy (URL must be live):
+Generated 2026-11-07 — target URL: `https://shihabarch.tech/ask?src=cv-qr` (src param = scan tracking, logged by the chat backend).
 
-- Target URL: `https://shihabarch.tech/ask?src=cv-qr`  (src param = scan tracking)
-- Suggested generator: `qrencode -o qr/cv-qr.png -s 12 --margin=2 'https://shihabarch.tech/ask?src=cv-qr'`
-  (or any generator; keep an SVG + PNG pair)
-- Place on CV: header, next to contact block, caption: "Scan to ask my AI anything about my work"
-- Re-generate if the ask page URL ever changes; keep old URL working via redirect.
+- `cv-qr.png` — dark-navy modules on white (screen)
+- `cv-qr-black.png` — pure black (best for print)
+- `cv-qr.svg` — vector
+
+Regenerate (URL unchanged):
+```bash
+python3 -c "
+import qrcode
+from qrcode.image.svg import SvgPathImage
+qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_M, box_size=12, border=2)
+qr.add_data('https://shihabarch.tech/ask?src=cv-qr'); qr.make(fit=True)
+qr.make_image(fill_color='black', back_color='white').save('qr/cv-qr-black.png')
+"
+```
+
+Place on CV: header, next to contact block, caption: **"Scan to ask my AI anything about my work"**
+The /ask page works fully offline-of-backend (local retrieval) and upgrades to LLM answers once CHAT_API_URL is set.

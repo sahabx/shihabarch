@@ -2,22 +2,37 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ask my AI — Mohammad Shahabuddin</title>
-<link rel="stylesheet" href="/assets/style.css"></head>
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+.chat{border:1px solid var(--line);border-radius:12px;background:var(--panel);display:flex;flex-direction:column;height:60vh;min-height:380px;max-width:760px}
+.chat-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:85%;padding:10px 14px;border-radius:12px;white-space:pre-wrap;font-size:15px;overflow-wrap:anywhere}
+.msg.user{align-self:flex-end;background:var(--acc);color:#0e1117;border-bottom-right-radius:2px}
+.msg.bot{align-self:flex-start;background:#1d2432;border-bottom-left-radius:2px}
+.msg.bot .src{margin-top:8px;font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding-top:6px}
+.msg.bot .src a{display:block;margin:2px 0}
+.msg.bot .src em{display:block;color:var(--mut)}
+.chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.chat-input input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--fg);padding:10px 12px;font-size:15px;font-family:inherit}
+.chat-input input:focus{outline:none;border-color:var(--acc)}
+.chat-input button{background:var(--acc);color:#0e1117;border:none;border-radius:8px;padding:10px 18px;font-weight:600;font-size:15px;cursor:pointer;font-family:inherit}
+.chat-input button:disabled{opacity:.5;cursor:default}
+.chat-status{font-size:12px;color:var(--mut);text-align:center;padding:4px}
+.chat-status a{margin:0 8px}
+</style></head>
 <body>
 <nav><a href="/">MS</a> <a href="/case-studies/">Case Studies</a> <a href="/services.html">Services</a> <a href="/how-i-work.html">How I Work</a> <a href="/about.html">About</a> <a href="/ask.html">Ask my AI</a></nav>
 <main>
 <h1>Ask my AI about me</h1>
-<p class="lead">This chat is grounded on the curated content of this site — case studies, stack, metrics. It is self-hosted on my own infrastructure (Dify/Botpress + VPS), which is itself part of the portfolio.</p>
+<p class="lead">This chat is grounded on the curated content of this site — case studies, stack, metrics — and runs on my own self-hosted infrastructure. The knowledge base is this site's own machine-readable layer (see below).</p>
 
-<!-- LAYER 2 WIDGET: replace this placeholder with the Dify/Botpress embed iframe/script once deployed.
-     Suggested: Dify chatflow app with knowledge base = site/*.md + data/profile.json.
-     Track QR scans via ?src=cv-qr query param. -->
-<div id="chat-placeholder" style="border:2px dashed #33405a;border-radius:12px;padding:48px;text-align:center;color:#8b93a3">
-  <p><b>Chat widget coming soon.</b></p>
-  <p>Meanwhile, two alternatives:</p>
-  <p>1. Point <em>your own AI</em> at this site — it is built for that:<br>
-     <code>"Read https://shihabarch.tech/llms.txt and answer: …"</code></p>
-  <p>2. <a href="/about.html#contact">Email me directly</a>.</p>
+<div class="chat" id="chat">
+  <div class="chat-log" id="chat-log"></div>
+  <div class="chat-status" id="chat-status"></div>
+  <form class="chat-input" id="chat-form">
+    <input id="chat-q" placeholder="Ask about my work, stack, metrics, process…" maxlength="1000" autofocus>
+    <button type="submit" id="chat-send">Send</button>
+  </form>
 </div>
 
 <h2>For AI assistants fetching this site</h2>
@@ -28,5 +43,135 @@
 </ul>
 </main>
 <footer><p>Machine-readable: <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a></p>
-<p>Services &amp; engagements: Abqariyyah (coming soon).</p></footer>
+<p>Services &amp; engagements: <b>Abqariyyah</b> (عبقرية) — AI adoption, data, workflow, systems.</p></footer>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Chat widget — two layers:
+   1. REMOTE (preferred): POSTs to the self-hosted LLM endpoint (the Abqariyyah
+      app's /api/chat with site=shihabarch — grounded RAG with a real model).
+      Set CHAT_API_URL after deploying the Abqariyyah app; leave "" to skip.
+   2. LOCAL (always works, zero backend): fetches this site's own .md twins +
+      JSON data layer, scores chunks with BM25-lite in the browser, answers
+      with the most relevant content + links. No keys, no third parties.
+--------------------------------------------------------------------------- */
+const CHAT_API_URL = ""; // e.g. "https://abqariyyah.com/api/chat"
+
+const src = new URLSearchParams(location.search).get("src") || "web"; // ?src=cv-qr tracking
+const log = document.getElementById("chat-log");
+const statusEl = document.getElementById("chat-status");
+const form = document.getElementById("chat-form");
+const input = document.getElementById("chat-q");
+const sendBtn = document.getElementById("chat-send");
+let busy = false;
+
+function addMsg(role, text, sources) {
+  const div = document.createElement("div");
+  div.className = "msg " + role;
+  div.textContent = text;
+  if (sources && sources.length) {
+    const s = document.createElement("div");
+    s.className = "src";
+    const em = document.createElement("em"); em.textContent = "Sources:";
+    s.appendChild(em);
+    sources.forEach(x => { const a = document.createElement("a"); a.href = x.url; a.textContent = x.title; s.appendChild(a); });
+    div.appendChild(s);
+  }
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+  return div;
+}
+
+addMsg("bot", "Hello! I'm the AI assistant for this portfolio — ask me anything about Mohammad's work, stack, metrics, or process. (For anything I can't answer, there's email on the About page.)");
+const SUGGESTIONS = ["What is his headline and positioning?", "Tell me about the omnichannel stack", "How much did he save the organization?", "What is his process for new projects?"];
+statusEl.innerHTML = SUGGESTIONS.slice(0,2).map(s => `<a href="#" data-q="${s.replace(/"/g,"&quot;")}">${s}</a>`).join("");
+statusEl.addEventListener("click", e => { const a = e.target.closest("a[data-q]"); if (a) { e.preventDefault(); input.value = a.dataset.q; form.requestSubmit(); }});
+
+/* ---- local retrieval (BM25-lite over the site's .md twins + JSON) ---- */
+let kb = null; // [{title, url, text}]
+async function loadKb() {
+  if (kb) return kb;
+  kb = [];
+  const pages = ["/about.md", "/services.md", "/how-i-work.md"];
+  try { const j = JSON.parse(await (await fetch("/data/case-studies.json")).text()); pages.push(...(j.case_studies || []).map(c => "/case-studies/" + c.id + ".md")); } catch {}
+  pages.push("/data/profile.json");
+  for (const p of pages) {
+    try {
+      const t = await (await fetch(p)).text();
+      if (t[0] === "{") { // JSON file: chunk by top-level keys
+        try {
+          const j = JSON.parse(t);
+          for (const [k, v] of Object.entries(j)) {
+            let s = JSON.stringify(v, null, 0) || "";
+            while (s.length > 1200) { kb.push({ title: p.split("/").pop() + " · " + k, url: p.replace(/\.json$/, ".html"), text: s.slice(0, 1200) }); s = s.slice(1200); }
+            if (s.trim()) kb.push({ title: p.split("/").pop() + " · " + k, url: p.replace(/\.json$/, ".html"), text: s });
+          }
+        } catch {}
+      } else { // markdown: split on ## headings
+        const secs = t.split(/\n(?=## )/);
+        for (const sec of secs) {
+          const h = sec.match(/^(#+ .+)$/m)?.[1] || p;
+          if (sec.trim().length > 40) kb.push({ title: h.replace(/^#+ /,""), url: p.replace(/\.md$/, ".html"), text: sec.trim() });
+        }
+      }
+    } catch {}
+  }
+  return kb;
+}
+
+const STOP = new Set("a an the of for to in on at is are was were be been and or but if then than that this these those it its as with by from about can could do does did have has had he she they you your we our i my me not no so such into over under more most other some any what which who whom when where why how all each both few many much own same too very just also will would should may might must his him her".split(" "));
+const tok = s => (s.toLowerCase().match(/[a-z0-9]+/g) || []).filter(t => !STOP.has(t) && t.length > 1);
+
+function localRetrieve(question, k = 5) {
+  const q = tok(question);
+  if (!q.length || !kb.length) return [];
+  const df = new Map();
+  const docs = kb.map(c => { const t = tok(c.text); new Set(t).forEach(w => df.set(w, (df.get(w) || 0) + 1)); return t; });
+  const N = kb.length;
+  return kb.map((c, i) => {
+    const tf = new Map(); docs[i].forEach(w => tf.set(w, (tf.get(w) || 0) + 1));
+    let s = 0;
+    for (const term of q) { const f = tf.get(term); if (!f) continue; const d = df.get(term); s += Math.log(1 + (N - d + .5) / (d + .5)) * f; }
+    return { c, s };
+  }).filter(x => x.s > 0).sort((a, b) => b.s - a.s).slice(0, k).map(x => x.c);
+}
+
+async function localAnswer(question) {
+  await loadKb();
+  const hits = localRetrieve(question);
+  if (!hits.length) return { answer: "I couldn't find that in my knowledge base. Try asking about my work, stack, metrics or process — or email me (About page).", sources: [] };
+  const best = hits[0].text.replace(/^---[\s\S]*?---\s*/, "").replace(/^(## .*)$/gm, "").replace(/\n{3,}/g, "\n\n").trim();
+  return { answer: best.slice(0, 700), sources: hits.slice(0, 3).map(h => ({ title: h.title, url: h.url })) };
+}
+
+async function remoteAnswer(question) {
+  const res = await fetch(CHAT_API_URL, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question, site: "shihabarch", source })
+  });
+  if (!res.ok) throw new Error("remote " + res.status);
+  const j = await res.json();
+  if (!j.answer) throw new Error("no answer");
+  return j;
+}
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const question = input.value.trim();
+  if (!question || busy) return;
+  addMsg("user", question);
+  input.value = ""; busy = true; sendBtn.disabled = true;
+  const thinking = addMsg("bot", "…");
+  try {
+    let j;
+    if (CHAT_API_URL) { try { j = await remoteAnswer(question); } catch { j = null; } }
+    if (!j) j = await localAnswer(question);
+    thinking.remove();
+    addMsg("bot", j.answer, j.sources);
+  } catch (err) {
+    thinking.remove();
+    addMsg("bot", "Something went wrong. Please try again, or email me (About page).");
+  } finally { busy = false; sendBtn.disabled = false; input.focus(); }
+});
+</script>
 </body></html>

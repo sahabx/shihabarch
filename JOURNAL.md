@@ -2,6 +2,23 @@
 
 Decision/context log for this repo. Update on every meaningful change.
 
+## 2026-11-07 · /ask chat is real; QR generated; deploy zip ready — Phase 0+2 chat DONE
+- **Context**: "finish both sites asap" session. AI Q&A was the main gap on this site.
+- **Decisions**:
+  - `/ask` is now a real chat page (hand-maintained `site/ask.html`), two layers:
+    1. **Remote LLM** (preferred): `CHAT_API_URL` const at top of the script — points at the
+       Abqariyyah full-stack app's `POST /api/chat` with `site=shihabarch` (grounded RAG,
+       OpenAI-compatible, DeepSeek default). Set the URL when the Abqariyyah app is deployed
+       and the domain bought. `?src=cv-qr` scan tracking is passed through and logged there.
+    2. **Local retrieval** (always works, zero backend): the page fetches its own `.md` twins +
+       `/data/*.json`, chunks them, scores with BM25-lite in the browser, answers with the best
+       chunk + source links. No keys, no third parties — the site works TODAY.
+  - QR generated: `qr/cv-qr.png|svg|black.png` → `https://shihabarch.tech/ask?src=cv-qr`.
+  - Deploy package: `dist/shihabarch-site.zip` (34 files) — upload to Hostinger public_html.
+  - Local retrieval verified against 5 test questions (headline, savings, omnichannel, process, languages).
+- **Remaining (human only)**: upload zip to Hostinger, verify /llms.txt + /data/profile.json MIME,
+  put QR on CV PDF, later set CHAT_API_URL in ask.html when Abqariyyah domain is live.
+
 ## 2026-10-22 · Headline chosen, contact added, Phase-1 data contracts implemented
 - Mohammad set `headline_chosen` (fixed JSON quoting — value was unquoted) and added
   contact email; removed LinkedIn placeholder (decision: no LinkedIn for now).
