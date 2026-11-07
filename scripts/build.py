@@ -1,19 +1,39 @@
 #!/usr/bin/env python3
 """build.py — render site/ from content/ (stdlib only).
 
+Design v2 (2026-11-07): hero + stats band + timeline + visual cards,
+self-hosted fonts (assets/fonts), reveal/count-up JS (assets/main.js).
+Hand-maintained in site/: ask.html, assets/*, robots.txt.
+
 Generates:
   site/index.html, site/about.html, site/services.html, site/how-i-work.html
   site/case-studies/index.html, site/case-studies/<id>.html   (career cut only)
   site/case-studies/<id>.md + site/*.md                        (markdown twins for AI ingestion)
-  site/llms.txt                                                (generated; do not hand-edit)
-  site/data/profile.json                                       (copy of canonical facts)
-Hand-maintained in site/: ask.html, assets/style.css, robots.txt, data/.gitkeep
+  site/llms.txt, site/sitemap.xml, site/data/*.json
 """
 import json, os, re, shutil, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT = os.path.join(ROOT, "content")
 SITE = os.path.join(ROOT, "site")
+
+DOMAIN = "https://shihabarch.tech"
+
+# short labels for the stats band / card highlights (long labels live in profile.json)
+SHORT_LABELS = {
+    "conversations": "conversations handled across 20+ countries",
+    "contacts": "people shared their contact details",
+    "reach": "avg. monthly campaign reach",
+    "saved_bhd": "BHD saved vs. the vendor quote",
+    "saved_usd_yr": "USD/yr of SaaS spend eliminated",
+    "countries": "countries served by the operation",
+    "agents": "agents supported on the platform",
+    "individuals_yr": "new records ingested per year",
+    "promotions": "promotions in under two years",
+    "downtime": "extended downtime in a platform crisis",
+}
+HOME_STATS = ["conversations", "saved_bhd", "contacts", "countries", "individuals_yr", "promotions"]
+STACK_GROUPS = [("Infrastructure", "infra", 8), ("Data", "data", 8), ("Apps & Channels", "apps", 8), ("AI", "ai", 7)]
 
 # ---------- frontmatter ----------
 def parse_md(path):
@@ -95,21 +115,46 @@ def strip_business_cut(md):
     """Career site shows career cut; business_cut stays in the .md twin only."""
     return re.sub(r"## business_cut\n.*?(?=\n## |\Z)", "", md, flags=re.S).strip()
 
+def tags(pillars):
+    return "".join(f'<span class="tag {p}">{p.replace("-", " ")}</span>' for p in pillars)
+
+def fmt_metric(m):
+    v = m["value"]
+    if isinstance(v, int):
+        return f'<b data-count="{v}">{v:,}</b>'
+    return f"<b>{v}</b>"
+
 # ---------- page shell ----------
-def page(title, body, jsonld=None):
+def page(title, body, jsonld=None, desc="AI & Systems Consultant — Bahrain. Self-hosted infrastructure, data platforms and AI adoption, proven at multi-country scale."):
     ld = f'<script type="application/ld+json">{json.dumps(jsonld)}</script>' if jsonld else ""
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title} — Mohammad Shahabuddin</title>
-<link rel="stylesheet" href="/assets/style.css">{ld}</head>
+<meta name="description" content="{desc}">
+<meta property="og:title" content="{title} — Mohammad Shahabuddin">
+<meta property="og:description" content="{desc}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{DOMAIN}/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+<script src="/assets/main.js" defer></script>{ld}</head>
 <body>
-<nav><a href="/">MS</a> <a href="/case-studies/">Case Studies</a> <a href="/services.html">Services</a> <a href="/how-i-work.html">How I Work</a> <a href="/about.html">About</a> <a href="/ask.html">Ask my AI</a></nav>
+<nav>
+  <a class="logo" href="/">MS<span>◆</span></a>
+  <a href="/case-studies/">Case Studies</a>
+  <a href="/services.html">Services</a>
+  <a href="/how-i-work.html">How I Work</a>
+  <a href="/about.html">About</a>
+  <a class="cta" href="/ask.html">Ask my AI</a>
+</nav>
 <main>
 {body}
 </main>
-<footer><p>Machine-readable: <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · markdown twin: append <code>.md</code> to any page path.</p>
-<p>Services &amp; engagements: Abqariyyah (coming soon).</p></footer>
+<footer><div class="inner">
+  <p><b style="font-family:'Space Grotesk'">Mohammad Shahabuddin</b> · AI &amp; Systems Consultant · Bahrain</p>
+  <p class="mono">Machine-readable: <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · append <code>.md</code> to any page</p>
+</div></footer>
 </body></html>
 """
 
@@ -119,6 +164,8 @@ def main():
     profile = json.load(open(os.path.join(CONTENT, "profile.json"), encoding="utf-8"))
     os.makedirs(os.path.join(SITE, "data"), exist_ok=True)
     os.makedirs(os.path.join(SITE, "case-studies"), exist_ok=True)
+
+    metrics = {m["id"]: m for m in profile["metrics"]}
 
     # canonical data copy
     shutil.copyfile(os.path.join(CONTENT, "profile.json"), os.path.join(SITE, "data", "profile.json"))
@@ -138,61 +185,162 @@ def main():
             warnings.append(f"{fm.get('id')} not listed in profile.json case_studies")
         # md twin (full, both cuts)
         shutil.copyfile(os.path.join(cs_dir, fn), os.path.join(SITE, "case-studies", fn))
-        # html (career cut)
+        # html (career cut) — header + sticky sidebar
         html_body = md_to_html(strip_business_cut(body))
-        meta = f'<p class="meta">{fm.get("client","")} · {fm.get("period","")} · pillars: {", ".join(fm.get("pillars",[]))}</p>'
+        mids = fm.get("metrics_ids", [])
+        side_metrics = "".join(
+            f'<div class="kv"><span>{metrics[mid]["label"].split(",")[0].split("(")[0].strip()}</span><b>{metrics[mid]["value"]:,}</b></div>'
+            if isinstance(metrics[mid]["value"], int) else
+            f'<div class="kv"><span>{metrics[mid]["label"].split(",")[0].split("(")[0].strip()}</span><b>{metrics[mid]["value"]}</b></div>'
+            for mid in mids if mid in metrics)
+        side = f"""<aside class="cs-side reveal">
+  <h4>Engagement</h4>
+  <div class="kv"><span>Client</span><b>{fm.get("client", "")}</b></div>
+  <div class="kv"><span>Period</span><b>{fm.get("period", "")}</b></div>
+  <div class="kv"><span>Pillars</span><b>{", ".join(fm.get("pillars", []))}</b></div>
+  <h4 style="margin-top:16px">Stack</h4>
+  <div class="stack">{"".join(f'<span class="pill">{s}</span>' for s in fm.get("stack", []))}</div>
+  {f'<h4 style="margin-top:16px">Headline numbers</h4>{side_metrics}' if side_metrics else ''}
+</aside>"""
+        header = f"""<div class="cs-head">
+  <span class="eyebrow">Case study</span>
+  <h1>{inline(fm['title'])}</h1>
+  <p class="summary">{inline(fm.get('summary', ''))}</p>
+  <div class="tags">{tags(fm.get('pillars', []))}</div>
+</div>
+<div class="cs-layout"><div class="prose reveal">{html_body}</div>{side}</div>"""
         open(os.path.join(SITE, "case-studies", fm["id"] + ".html"), "w", encoding="utf-8").write(
-            page(fm["title"], f"<h1>{inline(fm['title'])}</h1>{meta}{html_body}"))
+            page(fm["title"], header, desc=fm.get("summary", "")))
 
-    # case studies index
-    cards = "".join(
-        f'<a class="card" href="/case-studies/{fm["id"]}.html"><h3>{inline(fm["title"])}</h3>'
-        f'<p>{inline(fm.get("summary",""))}</p><span class="pillars">{", ".join(fm.get("pillars",[]))}</span></a>'
-        for fm, _ in studies)
+    # case studies index — cards with a headline metric
+    cards = []
+    for i, (fm, _) in enumerate(studies, 1):
+        mid = next((m for m in fm.get("metrics_ids", []) if m in metrics), None)
+        metric_html = f'<b>{metrics[mid]["value"]:,}</b> <span class="unit">{SHORT_LABELS.get(mid, "")}</span>' if mid and isinstance(metrics[mid]["value"], int) else f'<b>{metrics[mid]["value"]}</b>' if mid else ""
+        cards.append(f"""<a class="card reveal" href="/case-studies/{fm['id']}.html">
+  <span class="num">C{i}</span>
+  <div class="tags">{tags(fm.get('pillars', []))}</div>
+  <h3>{inline(fm['title'])}</h3>
+  <p>{inline(fm.get('summary', ''))}</p>
+  <div class="foot"><span>{fm.get('period', '')}</span><span>{metric_html}</span></div>
+</a>""")
     open(os.path.join(SITE, "case-studies", "index.html"), "w", encoding="utf-8").write(
-        page("Case Studies", f"<h1>Case Studies</h1><div class='cards'>{cards}</div>"))
+        page("Case Studies", f"""<div class="page-head">
+  <span class="eyebrow">Evidence</span>
+  <h1>Case Studies</h1>
+  <p class="lead">Six documented builds — the requirements, the decisions, the numbers. Each page keeps a markdown twin for AI ingestion.</p>
+</div>
+<div class="cards">{"".join(cards)}</div>"""))
 
     # content pages
-    for fn, out in [("about.md", "about.html"), ("services.md", "services.html"), ("how-i-work.md", "how-i-work.html")]:
+    for fn, out, eyebrow in [("about.md", "about.html", "The person"), ("services.md", "services.html", "What I do"), ("how-i-work.md", "how-i-work.html", "Method")]:
         p = os.path.join(CONTENT, fn)
         if not os.path.exists(p): continue
         fm, body = parse_md(p)
         if fm.get("status") == "draft": warnings.append(f"draft: {fn}")
-        open(os.path.join(SITE, out), "w", encoding="utf-8").write(page(fm.get("title", out), md_to_html(body)))
+        open(os.path.join(SITE, out), "w", encoding="utf-8").write(
+            page(fm.get("title", out), f'<div class="page-head"><span class="eyebrow">{eyebrow}</span><h1>{fm.get("title", out)}</h1></div><div class="prose">{md_to_html(body)}</div>'))
         shutil.copyfile(p, os.path.join(SITE, fn))  # md twin
 
-    # index.html
-    headline = profile["person"].get("headline_chosen") or profile["person"]["headline_candidates"][0]
-    metrics_html = "".join(
-        f'<div class="metric"><b>{m["value"] if not isinstance(m["value"], str) else m["value"]}</b><span>{inline(m["label"])}{"  [VERIFY]" if m.get("verify") else ""}</span></div>'
-        for m in profile["metrics"][:6])
-    roles_html = "".join(
-        f'<li><b>{r["title"]}</b> · {r["org"]} · {r["start"]} → {r["end"] or "present"}</li>'
-        for r in profile["roles"])
-    jsonld = {"@context": "https://schema.org", "@type": "Person",
-              "name": profile["person"]["name"], "url": "https://shihabarch.tech",
-              "jobTitle": headline, "address": {"@type": "PostalAddress", "addressCountry": "BH"},
-              "sameAs": [profile["person"]["links"]["github"]]}
-    body = f"""<h1>Mohammad Shahabuddin</h1>
-<p class="lead">{inline(headline)}</p>
-<div class="metrics">{metrics_html}</div>
-<h2>Track record</h2><ul class="roles">{roles_html}</ul>
-<h2>Selected work</h2>
-<div class="cards">{''.join(f'<a class="card" href="/case-studies/{fm["id"]}.html"><h3>{inline(fm["title"])}</h3><span class="pillars">{", ".join(fm.get("pillars",[]))}</span></a>' for fm,_ in studies[:4])}</div>
-<p><a class="btn" href="/case-studies/">All case studies →</a> <a class="btn" href="/ask.html">Ask my AI about me →</a></p>"""
-    open(os.path.join(SITE, "index.html"), "w", encoding="utf-8").write(page("Home", body, jsonld))
+    # ---------- index ----------
+    person = profile["person"]
+    headline = person.get("headline_chosen") or person["headline_candidates"][0]
+    head_role, _, head_rest = headline.partition("—")
+    if not head_rest: head_role, head_rest = headline, ""
+    stack = profile["stack"]
 
-    # data contracts (Phase 1): JSON endpoints so any AI/script can rebuild the portfolio
+    stats_html = "".join(
+        f'<div class="stat reveal"><b data-count="{metrics[i]["value"]}">{metrics[i]["value"]:,}</b><span>{SHORT_LABELS.get(i, metrics[i]["label"])}</span></div>'
+        if isinstance(metrics[i]["value"], int)
+        else f'<div class="stat reveal"><b>{metrics[i]["value"]}</b><span>{SHORT_LABELS.get(i, metrics[i]["label"])}</span></div>'
+        for i in HOME_STATS if i in metrics)
+
+    roles_html = "".join(
+        f'<li class="reveal"><span class="when">{r["start"]} → {r["end"] or "present"}</span>'
+        f'<b>{r["title"]}</b> · {r["org"]}' + (f'<p>{inline(r.get("note", ""))}</p>' if r.get("note") else '') + "</li>"
+        for r in profile["roles"])
+
+    # stack card (hero right)
+    groups_html = "".join(
+        f'<div class="stackgroup"><b>{label}</b><div class="pills">'
+        + "".join(f'<span class="pill{" hl" if j < 3 else ""}">{s}</span>' for j, s in enumerate(stack.get(key, [])[:n]))
+        + "</div></div>"
+        for label, key, n in STACK_GROUPS)
+    stackcard = f"""<div class="stackcard reveal">
+  <h3><span class="dot"></span>Running in production</h3>
+  <p class="sub">A one-man IT department across 3 VPS providers</p>
+  {groups_html}
+</div>"""
+
+    # marquee: full stack in a slow loop
+    all_stack = [s for key in ("infra", "data", "apps", "ai", "apis") for s in stack.get(key, [])]
+    mq = "".join(f"<span>{s}</span>" for s in all_stack)
+    marquee = f'<div class="marquee"><div class="track">{mq}{mq}</div></div>'
+
+    cards_home = []
+    for i, (fm, _) in enumerate(studies[:4], 1):
+        mid = next((m for m in fm.get("metrics_ids", []) if m in metrics), None)
+        mv = f'{metrics[mid]["value"]:,}' if mid and isinstance(metrics[mid]["value"], int) else (metrics[mid]["value"] if mid else "")
+        cards_home.append(f"""<a class="card reveal" href="/case-studies/{fm['id']}.html">
+  <span class="num">C{i}</span>
+  <div class="tags">{tags(fm.get('pillars', []))}</div>
+  <h3>{inline(fm['title'])}</h3>
+  <p>{inline(fm.get('summary', ''))}</p>
+  <div class="foot"><span>{fm.get('period', '')}</span><span><b>{mv}</b> <span style="color:var(--mut2);font-size:11px">{SHORT_LABELS.get(mid, "")}</span></span></div>
+</a>""")
+
+    lang_chips = "".join(f'<span class="chip">{l.split("(")[0].strip()}</span>' for l in person.get("languages", [])[:4])
+
+    jsonld = {"@context": "https://schema.org", "@type": "Person",
+              "name": person["name"], "url": DOMAIN,
+              "jobTitle": headline, "address": {"@type": "PostalAddress", "addressCountry": "BH"},
+              "sameAs": [person["links"]["github"]]}
+
+    body = f"""<div class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">{inline(head_role.strip())} · Bahrain</span>
+      <h1>Mohammad <em>Shahabuddin</em></h1>
+      <p class="sub">{inline(head_rest.strip() if head_rest else headline)} — <strong>self-hosted, sovereign, and proven at multi-country scale</strong> for NGOs &amp; SMEs.</p>
+      <div class="loc">{lang_chips}</div>
+      <div class="hero-ctas">
+        <a class="btn primary" href="/ask.html">Ask my AI →</a>
+        <a class="btn ghost" href="/case-studies/">See the evidence</a>
+      </div>
+    </div>
+    {stackcard}
+  </div>
+  {marquee}
+</div>
+<div class="stats">{stats_html}</div>
+<section>
+  <div class="sec-head"><span class="eyebrow">Track record</span><h2>From programmer to one-man platform engineering</h2></div>
+  <ul class="timeline">{roles_html}</ul>
+</section>
+<section>
+  <div class="sec-head"><span class="eyebrow">Selected work</span><h2>Builds you can verify</h2>
+    <p>Every case study documents requirements, options considered, the decision — and the numbers. Screenshots and decision records available on request.</p></div>
+  <div class="cards">{''.join(cards_home)}</div>
+  <p style="margin-top:24px"><a class="btn ghost" href="/case-studies/">All six case studies →</a></p>
+</section>
+<div class="aicallout reveal">
+  <h2>Recruiter shortcut: ask my AI</h2>
+  <p>Scanning dozens of CVs? My assistant is grounded on this site's full content — stack, metrics, process — and answers in seconds. Or point <em>your own</em> AI at this site; it's built for that.</p>
+  <a class="btn primary" href="/ask.html">Open the chat →</a>
+  <p class="mono" style="margin-top:14px">"Read https://shihabarch.tech/llms.txt and answer: …" — works with any assistant.</p>
+</div>"""
+    open(os.path.join(SITE, "index.html"), "w", encoding="utf-8").write(page("Mohammad Shahabuddin — " + head_role.strip(), body, jsonld))
+
+    # data contracts (Phase 1)
     with open(os.path.join(SITE, "data", "case-studies.json"), "w", encoding="utf-8") as f:
         json.dump({"updated": profile["meta"]["updated"], "case_studies": cs_index}, f, indent=1)
     with open(os.path.join(SITE, "data", "metrics.json"), "w", encoding="utf-8") as f:
         json.dump({"updated": profile["meta"]["updated"], "metrics": profile["metrics"]}, f, indent=1)
 
     # sitemap
-    urls = ["https://shihabarch.tech/", "https://shihabarch.tech/about.html",
-            "https://shihabarch.tech/services.html", "https://shihabarch.tech/how-i-work.html",
-            "https://shihabarch.tech/ask.html", "https://shihabarch.tech/case-studies/"]
-    urls += [f"https://shihabarch.tech/case-studies/{fm['id']}.html" for fm, _ in studies]
+    urls = [DOMAIN + "/", DOMAIN + "/about.html", DOMAIN + "/services.html",
+            DOMAIN + "/how-i-work.html", DOMAIN + "/ask.html", DOMAIN + "/case-studies/"]
+    urls += [f"{DOMAIN}/case-studies/{fm['id']}.html" for fm, _ in studies]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     sm += "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls)
     sm += "</urlset>\n"

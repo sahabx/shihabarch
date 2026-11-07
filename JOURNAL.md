@@ -2,6 +2,30 @@
 
 Decision/context log for this repo. Update on every meaningful change.
 
+## 2026-11-07 (2) · Design v2 — the site no longer looks like a text file
+- **Context**: site went live (GitHub Pages, custom domain shihabarch.tech). First look:
+  "very bad for a portfolio site… basic and read-heavy, doesn't catch user attention". Fair —
+  v1 was a default-font text wall.
+- **Design v2** (same content pipeline, same .md twins, same data contracts — only presentation changed):
+  - Self-hosted **Space Grotesk + Inter** (variable woff2, latin, 70KB total — no Google Fonts
+    tracking, on-brand for sovereignty). Favicon added (SVG monogram).
+  - **Hero**: eyebrow (role · Bahrain), huge name w/ gradient, headline sub, language chips,
+    gradient CTA buttons, live "Running in production" stack card, slow stack **marquee**.
+  - **Stats band**: 6 big gradient numbers with **count-up animation** (525,301 conversations,
+  8,000 BHD saved, …).
+  - **Career timeline** (roles as vertical timeline with dots), case-study cards with pillar
+    tags (color-coded: AI violet / Data sky / Workflow emerald / Systems amber), headline
+    metric per card, hover lift.
+  - Case-study pages: header + **sticky sidebar** (client, period, pillars, stack pills, numbers).
+  - Scroll **reveal animations** (IntersectionObserver, fail-safe: only active when JS runs
+    — no-JS visitors see everything). prefers-reduced-motion respected.
+  - ask.html restyled to match (gradient-border chat panel, chip suggestions).
+- build.py templates rewritten (page shell, index, case-study detail+index, prose pages);
+  SHORT_LABELS map added for terse stat labels (long labels stay in profile.json).
+- Verified: fonts/CSS/JS/favicon serve 200, reveal + count-up fire in headless Chromium
+  (viewport-dependent), business_cut still stripped from HTML, .md twins intact.
+- Deployed via scripts/deploy-ghpages.sh --push.
+
 ## 2026-11-07 · /ask chat is real; QR generated; deploy zip ready — Phase 0+2 chat DONE
 - **Context**: "finish both sites asap" session. AI Q&A was the main gap on this site.
 - **Decisions**:
