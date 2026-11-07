@@ -2,11 +2,31 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NMC-first: WhatsApp → Postgres Ingest Pipeline with Tailscale-Only Exposure — Mohammad Shahabuddin</title>
-<link rel="stylesheet" href="/assets/style.css"></head>
+<meta name="description" content="Production realtime pipeline: WhatsApp group messages ingested via a legitimate linked device into Postgres, reachable only over a Tailscale network, with passive-ingest guardrails, versioned deployments and two-way Google Sheets sync for non-technical staff.">
+<meta property="og:title" content="NMC-first: WhatsApp → Postgres Ingest Pipeline with Tailscale-Only Exposure — Mohammad Shahabuddin">
+<meta property="og:description" content="Production realtime pipeline: WhatsApp group messages ingested via a legitimate linked device into Postgres, reachable only over a Tailscale network, with passive-ingest guardrails, versioned deployments and two-way Google Sheets sync for non-technical staff.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shihabarch.tech/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+<script src="/assets/main.js" defer></script></head>
 <body>
-<nav><a href="/">MS</a> <a href="/case-studies/">Case Studies</a> <a href="/services.html">Services</a> <a href="/how-i-work.html">How I Work</a> <a href="/about.html">About</a> <a href="/ask.html">Ask my AI</a></nav>
+<nav>
+  <a class="logo" href="/">MS<span>◆</span></a>
+  <a href="/case-studies/">Case Studies</a>
+  <a href="/services.html">Services</a>
+  <a href="/how-i-work.html">How I Work</a>
+  <a href="/about.html">About</a>
+  <a class="cta" href="/ask.html">Ask my AI</a>
+</nav>
 <main>
-<h1>NMC-first: WhatsApp → Postgres Ingest Pipeline with Tailscale-Only Exposure</h1><p class="meta">Discover Islam Society (New Muslim Care) · 2026-08 → present · pillars: data, systems, workflow</p><h1>C3 · NMC-first Pipeline (WhatsApp → Postgres)</h1>
+<div class="cs-head">
+  <span class="eyebrow">Case study</span>
+  <h1>NMC-first: WhatsApp → Postgres Ingest Pipeline with Tailscale-Only Exposure</h1>
+  <p class="summary">Production realtime pipeline: WhatsApp group messages ingested via a legitimate linked device into Postgres, reachable only over a Tailscale network, with passive-ingest guardrails, versioned deployments and two-way Google Sheets sync for non-technical staff.</p>
+  <div class="tags"><span class="tag data">data</span><span class="tag systems">systems</span><span class="tag workflow">workflow</span></div>
+</div>
+<div class="cs-layout"><div class="prose reveal"><h1>C3 · NMC-first Pipeline (WhatsApp → Postgres)</h1>
 <h2>Facts</h2>
 <ul><li>QR-code linked-device login (Baileys); realtime message capture for new-Muslim care operations. Metadata + text only — no media downloaded, no historical backfill.</li></ul>
 <p><img src="/assets/nmc-architecture.svg" alt="NMC-first architecture" loading="lazy"></p>
@@ -14,8 +34,18 @@
 <h2>career_cut</h2>
 <p>Shows production discipline most portfolio projects lack: threat-model thinking (why Tailscale-only), platform-ToS-aware design (the guardrail list), backup-before-change habit, and documentation as a first-class deliverable. Also demonstrates explaining a full system's flow/logic/mapping to non-technical stakeholders.</p>
 <h2>Open items</h2>
-<ul><li>Resolved 2026-10-22: architecture diagram published (above).</li><li>[ ] Add message-volume metric if DIS approves.</li></ul>
+<ul><li>Resolved 2026-10-22: architecture diagram published (above).</li><li>[ ] Add message-volume metric if DIS approves.</li></ul></div><aside class="cs-side reveal">
+  <h4>Engagement</h4>
+  <div class="kv"><span>Client</span><b>Discover Islam Society (New Muslim Care)</b></div>
+  <div class="kv"><span>Period</span><b>2026-08 → present</b></div>
+  <div class="kv"><span>Pillars</span><b>data, systems, workflow</b></div>
+  <h4 style="margin-top:16px">Stack</h4>
+  <div class="stack"><span class="pill">WhatsApp linked-device (Baileys-class library)</span><span class="pill">PostgreSQL</span><span class="pill">Docker</span><span class="pill">Tailscale</span><span class="pill">Google Sheets API</span><span class="pill">Node.js</span></div>
+  
+</aside></div>
 </main>
-<footer><p>Machine-readable: <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · markdown twin: append <code>.md</code> to any page path.</p>
-<p>Services &amp; engagements: Abqariyyah (coming soon).</p></footer>
+<footer><div class="inner">
+  <p><b style="font-family:'Space Grotesk'">Mohammad Shahabuddin</b> · AI &amp; Systems Consultant · Bahrain</p>
+  <p class="mono">Machine-readable: <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · append <code>.md</code> to any page</p>
+</div></footer>
 </body></html>
