@@ -1,0 +1,168 @@
+{
+ "updated": "2026-10-21",
+ "case_studies": [
+  {
+   "id": "c1-omnichannel-stack",
+   "title": "Self-Hosted Omnichannel Stack for Multi-Country Outreach",
+   "status": "reviewed",
+   "client": "Discover Islam Society",
+   "client_public": true,
+   "period": "2024-11 \u2192 present",
+   "pillars": [
+    "systems",
+    "ai-adoption",
+    "workflow"
+   ],
+   "stack": [
+    "Chatwoot",
+    "NocoDB",
+    "Grafana",
+    "n8n",
+    "Botpress",
+    "Dify",
+    "PostgreSQL",
+    "Docker",
+    "Bash",
+    "Hostinger VPS",
+    "Contabo",
+    "DigitalOcean",
+    "Facebook Marketing API",
+    "TikTok Business API",
+    "Eazypay"
+   ],
+   "metrics_ids": [
+    "conversations",
+    "contacts",
+    "reach",
+    "countries",
+    "promotions",
+    "downtime"
+   ],
+   "summary": "Replaced third-party SaaS with a fully self-hosted omnichannel communication + CRM + analytics + automation ecosystem serving local agents, offshore agents, and management across 20+ countries."
+  },
+  {
+   "id": "c2-data-platform-rls",
+   "title": "The Data-Platform Decision: Evaluating 4 Candidates, Forking Twenty, Adding Row-Level Security",
+   "status": "reviewed",
+   "client": "Discover Islam Society (Path to Peace operations)",
+   "client_public": true,
+   "period": "2026-09 (evaluation + fork); deployed",
+   "pillars": [
+    "data",
+    "systems"
+   ],
+   "stack": [
+    "Twenty CRM",
+    "TypeScript",
+    "PostgreSQL",
+    "Docker",
+    "Traefik",
+    "Hostinger VPS",
+    "NocoDB",
+    "Teable",
+    "Mathesar"
+   ],
+   "metrics_ids": [
+    "agents",
+    "individuals_yr",
+    "countries"
+   ],
+   "summary": "Formal requirements-driven evaluation of NocoDB / Twenty / Teable / Mathesar for a master-individual data platform with row+field-level permissions; ended in a surgical Twenty fork adding a community row-level-security engine, white-labelling and a telemetry gate \u2014 deployed as the 'Path to Peace' CRM."
+  },
+  {
+   "id": "c3-nmc-pipeline",
+   "title": "NMC-first: WhatsApp \u2192 Postgres Ingest Pipeline with Tailscale-Only Exposure",
+   "status": "reviewed",
+   "client": "Discover Islam Society (New Muslim Care)",
+   "client_public": true,
+   "period": "2026-08 \u2192 present",
+   "pillars": [
+    "data",
+    "systems",
+    "workflow"
+   ],
+   "stack": [
+    "WhatsApp linked-device (Baileys-class library)",
+    "PostgreSQL",
+    "Docker",
+    "Tailscale",
+    "Google Sheets API",
+    "Node.js"
+   ],
+   "metrics_ids": [],
+   "summary": "Production realtime pipeline: WhatsApp group messages ingested via a legitimate linked device into Postgres, reachable only over a Tailscale network, with passive-ingest guardrails, versioned deployments and two-way Google Sheets sync for non-technical staff."
+  },
+  {
+   "id": "c4-cost-sovereignty",
+   "title": "Cost & Sovereignty Audit: 8,000 BHD Saved, $3k/yr SaaS Eliminated, Zero Extended Downtime in a Platform Crisis",
+   "status": "reviewed",
+   "client": "Discover Islam Society",
+   "client_public": true,
+   "period": "2024-11 \u2192 present",
+   "pillars": [
+    "systems",
+    "workflow"
+   ],
+   "stack": [
+    "open-source replacement strategy",
+    "multi-VPS diversification",
+    "backups/DR"
+   ],
+   "metrics_ids": [
+    "saved_bhd",
+    "saved_usd_yr",
+    "downtime"
+   ],
+   "summary": "A contractor quoted 8,000 BHD for a basic custom omnichannel platform. I stopped the deal and delivered four integrated systems \u2014 Chatwoot, CRM, custom mobile app, Grafana \u2014 for 100 BHD/year of VPS cost. Plus a big-tech diversification strategy that kept operations running when Facebook blocked management credentials."
+  },
+  {
+   "id": "c5-marketing-data-ops",
+   "title": "Marketing Data Operations: From Campaign Chaos to Country-Level Dashboards",
+   "status": "reviewed",
+   "client": "Discover Islam Society",
+   "client_public": true,
+   "period": "2025-04 \u2192 present",
+   "pillars": [
+    "data",
+    "workflow"
+   ],
+   "stack": [
+    "Google Ads",
+    "Facebook Ads",
+    "TikTok Ads",
+    "Google Analytics",
+    "Google Sheets\u2192DB migration",
+    "Python/OpenRefine cleaning",
+    "Grafana dashboards",
+    "country-code normalization"
+   ],
+   "metrics_ids": [
+    "conversations",
+    "contacts",
+    "reach",
+    "countries"
+   ],
+   "summary": "Ran the data side of a 20+ country paid-social operation: campaign data prep, phone/country-code normalization at scale, conversion analysis per campaign, and the migration of reporting off Google Sheets into structured databases and dashboards."
+  },
+  {
+   "id": "c6-realtime-language-ai",
+   "title": "Realtime Language AI: Translation & Transcription Pipelines Built on a Decade of Multilingual Fieldwork",
+   "status": "reviewed",
+   "client": "personal R&D + Discover Islam Society applications",
+   "client_public": true,
+   "period": "2026 (tooling), rooted in 2020\u20132024 field experience",
+   "pillars": [
+    "ai-adoption"
+   ],
+   "stack": [
+    "WhisperX",
+    "faster-whisper",
+    "Qwen ASR/TTS",
+    "realtime Arabic\u2194English translation prototypes",
+    "LLM-assisted book translation workflows"
+   ],
+   "metrics_ids": [],
+   "summary": "AI translation/transcription tooling (realtime Arabic\u2194English, long-audio WhisperX pipelines sized to consumer hardware, TTS/ASR experiments, book-translation repair workflows) built by someone who spent 4 years doing this work by hand at a government protection center."
+  }
+ ]
+}
