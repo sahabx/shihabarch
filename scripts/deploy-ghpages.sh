@@ -8,15 +8,19 @@ cd "$(dirname "$0")/.."
 echo "· building site/ from content/…"
 python3 scripts/build.py
 
+# stash a copy of the fresh build before branch switching removes site/
+TMP=$(mktemp -d)
+cp -r site/. "$TMP"/
+
 echo "· updating gh-pages branch…"
 BRANCH=$(git branch --show-current)
 git checkout gh-pages
-# wipe tracked files except .git, then copy fresh build
 git rm -rq --cached . 2>/dev/null || true
 find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-cp -r site/* .
+cp -r "$TMP"/. .
 [ -f CNAME ] || echo "shihabarch.tech" > CNAME
 touch .nojekyll   # critical: stops GitHub Jekyll from converting the .md twins
+rm -rf "$TMP"
 git add -A
 if git diff --cached --quiet; then
   echo "· no changes — nothing to commit"
