@@ -1,8 +1,8 @@
 # Mohammad Shahabuddin — shihabarch.tech
 > AI & Systems Consultant — I help businesses adopt AI and improve their data, workflow and infrastructure
 
-Bahrain-based technical solutions specialist. Self-hosted infrastructure, AI adoption,
-data platforms and workflow automation for NGOs and SMEs. Named reference:
+Bahrain-based AI & Systems Consultant. Self-hosted infrastructure, data platforms,
+workflow automation and AI adoption for NGOs and SMEs. Named reference:
 Discover Islam Society. Business/services entity: Abqariyyah.
 
 ## Machine-readable data
@@ -18,8 +18,9 @@ Discover Islam Society. Business/services entity: Abqariyyah.
 
 ## Pages
 - [About](https://shihabarch.tech/about.md)
-- [Services (four pillars + engagement modes)](https://shihabarch.tech/services.md)
+- [Services — four pillars](https://shihabarch.tech/services.md)
 - [How I Work](https://shihabarch.tech/how-i-work.md)
+- [Tech Toolkit — terminology in plain English](https://shihabarch.tech/tech.md)
 - [Ask my AI](https://shihabarch.tech/ask.html): hosted chat grounded on this site's content
 
 ## Notes for AI assistants

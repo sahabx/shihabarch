@@ -4,30 +4,40 @@ status: reviewed
 note: "Shared asset: shihabarch renders the career angle ('what I can do'); Abqariyyah renders the offer angle ('packages + pricing + booking'). Same facts, two cuts."
 ---
 
-# Services — four pillars
+# Services — what I can do for your organization
 
-## 1. AI Adoption
-Chatbots & automation (Dify, Botpress), LLM integration into your existing tools, transcription & translation pipelines, AI-assisted document processing.
-*Proof: C1 (AI layer in omnichannel stack), C6 (language AI).*
+Four areas, one goal: technology that works for you — without the jargon, the lock-in, or the surprise bills.
 
-## 2. Data
-CRM deployment & customization (Twenty fork with row-level security), migrations off spreadsheet sprawl, dedup/normalization across countries, dashboards & reporting (Grafana, NocoDB).
-*Proof: C2 (platform decision + RLS fork), C5 (marketing data ops).*
+## AI Adoption — put AI to work on systems you own
+- Chatbots that answer customers automatically, on your own systems
+- AI that reads and summarizes your documents and reports
+- Voice-to-text and translation across languages
+- AI baked into the tools you already use: inbox, customer database, spreadsheets
 
-## 3. Workflow
-n8n automation, process design & documentation, mobile-first data entry for field teams, chat-to-database pipelines (WhatsApp → Postgres).
-*Proof: C3 (NMC pipeline), C1 (agent portal).*
+## Data — one reliable system instead of scattered spreadsheets
+- Move off spreadsheet chaos into one clean, central customer database
+- Clean up duplicate records and messy phone numbers
+- Live dashboards that show what's happening at a glance
+- Privacy controls: each team sees only what it should
 
-## 4. Systems
-Self-hosted infrastructure on VPS (Docker, Traefik, Tailscale), PostgreSQL administration, backups & disaster recovery, cost/sovereignty audits, platform-diversification strategy.
-*Proof: C4 (8,000 BHD saved; zero extended downtime in a platform crisis).*
+## Workflow — automate the repetitive work
+- Connect your apps so information flows automatically between them
+- Incoming messages (WhatsApp, Messenger, social) become database records by themselves
+- Simple forms your field team can fill on their phones
+- Document the process so your team can run it without me
 
-# Engagement modes
+## Systems — own your technology, no lock-in
+- Your own servers and software — not renting everything from someone else
+- Backups and recovery plans so you never lose data
+- Security: your systems stay off the public internet
+- Cost reviews: swap expensive subscriptions for self-hosted options you own
 
-| Mode | Shape | Typical entry point |
+## How we engage
+
+| Mode | What it looks like | When it fits |
 |---|---|---|
-| **Project** | Fixed-scope build (deploy, migrate, integrate) | Requirements doc → assessment → delivery |
-| **Consultancy** | Advisory / audit / architecture review | Cost & sovereignty audit, platform selection |
-| **Maintenance** | Monthly retainer: keep it running, keep it improving | After any project delivery |
+| **Project** | A fixed-scope build we agree up front | You know what you need |
+| **Consultancy** | An honest review of what you have and what to pick | You're not sure where to start |
+| **Maintenance** | I keep it running and improving, month to month | After a build, or for existing systems |
 
-*Pricing on request; Abqariyyah site will carry packages once the legal entity is settled.*
+*Pricing on request — simple, and stated before we start.*

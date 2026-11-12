@@ -7,7 +7,7 @@ client_public: true
 period: "2024-11 → present"
 pillars: [systems, ai-adoption, workflow]
 stack: [Chatwoot, NocoDB, Grafana, n8n, Botpress, Dify, PostgreSQL, Docker, Bash, Hostinger VPS, Contabo, DigitalOcean, Facebook Marketing API, TikTok Business API, Eazypay]
-metrics_ids: [conversations, contacts, reach, countries, promotions, downtime]
+metrics_ids: [conversations, contacts, reach, countries, downtime]
 summary: "Replaced third-party SaaS with a fully self-hosted omnichannel communication + CRM + analytics + automation ecosystem serving local agents, offshore agents, and management across 20+ countries."
 ---
 
@@ -26,7 +26,7 @@ summary: "Replaced third-party SaaS with a fully self-hosted omnichannel communi
 The story of ownership: no dev team, no SaaS budget — one person taking a multi-team, multi-country operation from third-party dependence to a sovereign stack. Highlights: the Facebook custom-app approval process (platform compliance + engineering), bare-metal Rails maintenance, and the crisis-recovery design (see C4). Engineering-judgment artifacts: deployment runbooks, journal-first decision logs.
 
 ## business_cut
-"What you get": a communication + CRM backbone your organization owns — no per-seat fees, no vendor kill-switch, data stays on infrastructure you control. Proven at: 525,301 conversations, 44,542 contacts, 20+ countries, ~800k monthly reach. Reference: Discover Islam Society (nameable).
+"What you get": a communication + CRM backbone your organization owns — no per-seat fees, no vendor kill-switch, data stays on infrastructure you control. Proven at: 700,000 conversations, 70,542 leads generated, 20+ countries, ~800k monthly reach. Reference: Discover Islam Society (nameable).
 
 ## Open items
 - Screenshots to capture (see `site/assets/screenshots/README.md`): Chatwoot inbox, n8n workflow canvas, custom agent app. Grafana currently down — capture when restored.
