@@ -2,6 +2,30 @@
 
 Decision/context log for this repo. Update on every meaningful change.
 
+## 2026-11-07 (3) · Business-friendly copy, tech terms moved to /tech, illustrations, crowd feedback
+- **Context**: Mohammad's feedback round on the live site.
+- **Decisions/changes**:
+  - **Mobile nav**: rewritten as logo + scrollable `.navlinks` + CTA; `flex-wrap:nowrap` + horizontal
+    scroll on phones — no more wrapping into multiple lines.
+  - **Home**: removed language chips; removed stack-card subtitle ("one-man IT department…");
+    Kubernetes now just "Kubernetes" (dropped learning→deployed note);
+    metrics updated 525,301→**700,000 conversations**, 44,542→**70,542 leads (2 yrs)**;
+    removed the 70,000/yr records and 3× promotions stats; section renamed to **Work history**
+    (was "From programmer to one-man platform engineering").
+  - **Services**: rewritten plain-English, each of the 4 pillars now an illustrated card
+    (inline SVG chat/sparkle, database+arrow, workflow nodes, server+shield) with "See how →" links.
+  - **How I Work**: rewritten into 5 plain-English steps, each an animated numbered node (pulse ring,
+    icons: write/decide/shield/lock/sparkle).
+  - **About**: shortened to a 4-sentence bio + contact.
+  - **NEW /tech.html (Tech Toolkit)**: all the jargon moved here — grouped tables (Infrastructure,
+    Data, Automation & AI, Connections & APIs) with a plain-English gloss per term, plus "how the
+    on-site AI works". Linked from nav + footer + stack-card + case-study sidebars + llms.txt.
+  - Profile.json metrics/roles cleaned (removed individuals_yr & promotions; plain role notes);
+    case-study numbers updated; c1 metrics_ids fixed; h1-duplication bug fixed (page-head vs md body).
+  - ask.html: added plain-English "how this works" section; KB now also loads /tech.md.
+- **Terminology strategy**: public pages speak business language; technical audience gets /tech.html
+  (and the case-study sidebars list tools with a link to the gloss).
+
 ## 2026-11-07 (2) · Design v2 — the site no longer looks like a text file
 - **Context**: site went live (GitHub Pages, custom domain shihabarch.tech). First look:
   "very bad for a portfolio site… basic and read-heavy, doesn't catch user attention". Fair —

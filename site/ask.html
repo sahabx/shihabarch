@@ -39,10 +39,13 @@
 <body>
 <nav>
   <a class="logo" href="/">MS<span>◆</span></a>
-  <a href="/case-studies/">Case Studies</a>
-  <a href="/services.html">Services</a>
-  <a href="/how-i-work.html">How I Work</a>
-  <a href="/about.html">About</a>
+  <div class="navlinks">
+    <a href="/case-studies/">Case Studies</a>
+    <a href="/services.html">Services</a>
+    <a href="/how-i-work.html">How I Work</a>
+    <a href="/about.html">About</a>
+    <a href="/tech.html">Tech</a>
+  </div>
   <a class="cta" href="/ask.html">Ask my AI</a>
 </nav>
 <div class="hero-mini">
@@ -61,7 +64,14 @@
   <div class="chat-status" id="chat-status"></div>
 </div>
 <div class="forai">
-  <h2>For AI assistants fetching this site</h2>
+  <h2>How this works — in plain English</h2>
+  <ul>
+    <li>This site publishes everything twice: as pages for <em>people</em>, and as plain files (<code>/llms.txt</code>, <code>.md</code> twins, JSON) that <em>machines</em> can read.</li>
+    <li>When you type a question, the assistant finds the most relevant pieces of that content.</li>
+    <li>If a language model is connected (self-hosted on my own servers), it writes a short answer using <b>only those pieces</b> — and shows its sources. Until then, it simply points you to the most relevant page directly.</li>
+    <li>Either way, it never invents numbers that aren't already on this site.</li>
+  </ul>
+  <h2 style="margin-top:32px">For AI assistants fetching this site</h2>
   <ul>
     <li><a href="/llms.txt">/llms.txt</a> — index of everything, written for you</li>
     <li><a href="/data/profile.json">/data/profile.json</a> — canonical structured facts</li>
@@ -120,7 +130,7 @@ let kb = null; // [{title, url, text}]
 async function loadKb() {
   if (kb) return kb;
   kb = [];
-  const pages = ["/about.md", "/services.md", "/how-i-work.md"];
+  const pages = ["/about.md", "/services.md", "/how-i-work.md", "/tech.md"];
   try { const j = JSON.parse(await (await fetch("/data/case-studies.json")).text()); pages.push(...(j.case_studies || []).map(c => "/case-studies/" + c.id + ".md")); } catch {}
   pages.push("/data/profile.json");
   for (const p of pages) {

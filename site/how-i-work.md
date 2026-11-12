@@ -5,14 +5,14 @@ status: reviewed
 
 # How I Work
 
-Five practices, all visible in the case-study evidence:
+Five habits you'll see on every project — and can check against the case studies.
 
-1. **Journal-first engineering.** Every project starts with a written journal — context, decisions, reversals. We brainstorm until agreed, then build. No undocumented drift.
+1. **Write it down before building.** Each project starts as a written document: what the problem is, the options, the decision, and any reversals. We agree on the plan first, then build. No drifting.
 
-2. **Evaluate → fork → white-label → deploy.** For platform choices: a written requirements doc, per-candidate assessments, a verdict, then the smallest surgical customization that fits (see the Twenty RLS fork — four same-named module replacements, not invasive patches).
+2. **Compare options, then customize.** Instead of buying the first big platform, I compare the realistic choices against a written list of your needs — then adapt the best one with the smallest change possible. You get what fits, not what a sales team pushes.
 
-3. **Failure preservation.** Failed attempts stay in the record (`Failed CCA App` sits next to the working rebuild; reversed decisions are logged). It's how the next person avoids the same wall.
+3. **Keep the failures on record.** When something doesn't work, it stays documented next to the working version — so nobody repeats the same costly mistake. One preserved failed app sits right beside the successful rebuild.
 
-4. **Data sovereignty by default.** Self-hosted, permissively licensed, backups before changes, secrets off the public internet (Tailscale-only databases, read-only roles). The organization owns its stack — including when a platform locks the doors.
+4. **Your systems, your data.** Everything runs on infrastructure you own, with permissive licenses and backups before changes. If a vendor locks the door one day — as happened on a client project — you keep working.
 
-5. **AI as cognitive extension.** AI agents across the whole lifecycle — research, evaluation, building, documenting, QA — with the human owning requirements, verdicts and review. This site practices it: `/llms.txt` and markdown twins so your AI can query my work directly.
+5. **AI as my assistant, never my replacement.** AI helps me research, build, document, and check my work — but requirements, verdicts, and review stay human. This very site is built so your AI can ask it questions too.
