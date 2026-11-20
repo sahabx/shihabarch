@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/assets/style.css">
 <script src="/assets/main.js" defer></script></head>
 <body>
+<canvas id="arch-canvas" class="art-bg" aria-hidden="true"></canvas>
 <nav class="site-nav">
   <a class="logo" href="/">Shihab’s <span>Architecture</span></a>
   <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -19,8 +20,6 @@
     <a href="/projects.html">Projects</a>
     <a href="/how-i-work.html">How I Work</a>
     <a href="/about.html">About</a>
-    <a href="/tech.html">Tech</a>
-    <a class="cta" href="/ask.html">Ask my AI</a>
   </div>
 </nav>
 <main>
@@ -43,13 +42,41 @@
   <div class="step-body"><h3>Your systems, your data.</h3><p>Everything runs on infrastructure you own, with permissive licenses and backups before changes. If a vendor locks the door one day — as happened on a client project — you keep working.</p></div>
 </li><li class="step reveal">
   <div class="step-badge"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4l2.6 6.2 6.2 2.6 -6.2 2.6 -2.6 6.2 -2.6 -6.2 -6.2 -2.6 6.2 -2.6z"/></svg><span>5</span></div>
-  <div class="step-body"><h3>AI as my assistant, never my replacement.</h3><p>AI helps me research, build, document, and check my work — but requirements, verdicts, and review stay human. This very site is built so your AI can ask it questions too.</p></div>
+  <div class="step-body"><h3>Start with the smallest useful version.</h3><p>We solve the highest-priority problem first with the leanest build that works, then grow it as it proves itself — so you don't pay for scaffolding you don't need yet.</p></div>
 </li></ol>
-<div class="engage prose"><div class="sec-head"><span class="eyebrow">Engagement</span><h2>How we engage</h2></div><table><thead><tr><th>Mode</th><th>What it looks like</th><th>When it fits</th></tr></thead><tbody><tr><td><strong>Project</strong></td><td>A fixed-scope build we agree up front</td><td>You know what you need</td></tr><tr><td><strong>Consultancy</strong></td><td>An honest review of what you have and what to pick</td><td>You're not sure where to start</td></tr><tr><td><strong>Maintenance</strong></td><td>I keep it running and improving, month to month</td><td>After a build, or for existing systems</td></tr></tbody></table>
-<p><em>Pricing on request — simple, and stated before we start.</em></p></div>
+<div class="engage">
+  <div class="sec-head"><span class="eyebrow">Engagement</span><h2>How we engage</h2></div>
+  <div class="engage-grid"><article class="mode reveal">
+  <div class="mode-icon"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="24" height="22" rx="3"/><path d="M4 10h24"/><path d="M9 7.5h.01M12 7.5h.01"/></svg></div>
+  <div class="mode-body">
+    <h3>Project</h3>
+    <p class="mode-what">A fixed-scope build we agree up front</p>
+    <p class="mode-when"><span>Fits when</span>You know what you need</p>
+  </div>
+</article><article class="mode reveal">
+  <div class="mode-icon"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="11"/><path d="M16 10v6l4 2"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/></svg></div>
+  <div class="mode-body">
+    <h3>Consultancy</h3>
+    <p class="mode-what">An honest review of what you have and what to pick</p>
+    <p class="mode-when"><span>Fits when</span>You're not sure where to start</p>
+  </div>
+</article><article class="mode reveal">
+  <div class="mode-icon"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M27 9a11 11 0 1 0 .5 12"/><path d="M27 3v6h-6"/></svg></div>
+  <div class="mode-body">
+    <h3>Maintenance</h3>
+    <p class="mode-what">I keep it running and improving, month to month</p>
+    <p class="mode-when"><span>Fits when</span>After a build, or for existing systems</p>
+  </div>
+</article></div>
+  <p class="engage-note">Pricing on request — simple, and stated before we start.</p>
+</div>
+<div class="budget reveal">
+  <div class="budget-icon"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="6.5" rx="8.5" ry="3.2"/><path d="M7.5 6.5v18c0 1.8 3.8 3.2 8.5 3.2s8.5-1.4 8.5-3.2v-18"/><path d="M7.5 15.5c0 1.8 3.8 3.2 8.5 3.2s8.5-1.4 8.5-3.2"/></svg></div>
+  <div class="budget-body"><p>I work with organizations that need dependable systems on a modest budget. There's almost always a lower-cost, self-hosted way to reach the same result — smaller scopes, open-source tools, and phased delivery instead of one big invoice. If the budget is tight, I'll tell you honestly what we can achieve within it — not upsell you past it.</p></div>
+</div>
 </main>
 <footer><div class="inner">
   <p><b style="font-family:'Space Grotesk'">Shihab’s Architecture</b> · Mohammad Shahabuddin · Bahrain</p>
-  <p class="mono"><a href="/case-studies/">Case studies</a> · <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · <a href="/tech.html">plain-English toolkit</a></p>
+  <p class="mono"><a href="/case-studies/">Case studies</a> · <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a></p>
 </div></footer>
 </body></html>

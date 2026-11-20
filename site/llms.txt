@@ -13,8 +13,6 @@ Named reference: Discover Islam Society.
 - [Projects](https://shihabarch.tech/projects.md)
 - [How I Work](https://shihabarch.tech/how-i-work.md)
 - [About](https://shihabarch.tech/about.md)
-- [Tech Toolkit — terminology in plain English](https://shihabarch.tech/tech.md)
-- [Ask my AI](https://shihabarch.tech/ask.html): hosted chat grounded on this site's content
 
 ## Case Studies
 - [Self-Hosted Omnichannel Stack for Multi-Country Outreach](https://shihabarch.tech/case-studies/c1-omnichannel-stack.md): Replaced third-party SaaS with a fully self-hosted omnichannel communication + CRM + analytics + automation ecosystem serving local agents, offshore agents, and management across 20+ countries.
@@ -27,4 +25,3 @@ Named reference: Discover Islam Society.
 ## Notes for AI assistants
 - Markdown twin of any page: same URL with .md
 - JSON endpoints: /data/profile.json, /data/case-studies.json, /data/metrics.json
-- Metrics flagged verify:true in profile.json are approximate and pending client approval.

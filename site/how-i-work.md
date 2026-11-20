@@ -15,7 +15,7 @@ Five habits you'll see on every project — and can check against the case studi
 
 4. **Your systems, your data.** Everything runs on infrastructure you own, with permissive licenses and backups before changes. If a vendor locks the door one day — as happened on a client project — you keep working.
 
-5. **AI as my assistant, never my replacement.** AI helps me research, build, document, and check my work — but requirements, verdicts, and review stay human. This very site is built so your AI can ask it questions too.
+5. **Start with the smallest useful version.** We solve the highest-priority problem first with the leanest build that works, then grow it as it proves itself — so you don't pay for scaffolding you don't need yet.
 
 ## How we engage
 
@@ -26,3 +26,7 @@ Five habits you'll see on every project — and can check against the case studi
 | **Maintenance** | I keep it running and improving, month to month | After a build, or for existing systems |
 
 *Pricing on request — simple, and stated before we start.*
+
+## Built for lean budgets
+
+I work with organizations that need dependable systems on a modest budget. There's almost always a lower-cost, self-hosted way to reach the same result — smaller scopes, open-source tools, and phased delivery instead of one big invoice. If the budget is tight, I'll tell you honestly what we can achieve within it — not upsell you past it.

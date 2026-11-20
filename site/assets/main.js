@@ -1,4 +1,4 @@
-// Shihab's Architecture — interactions (nav toggle, reveal, count-up, interactive artifact).
+// Shihab's Architecture — interactions (nav toggle, reveal, count-up, interactive canvas background).
 // No dependencies.
 (function () {
   document.documentElement.classList.add("js");
@@ -58,7 +58,8 @@
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       var rect = canvas.getBoundingClientRect();
-      w = Math.max(1, rect.width); h = Math.max(1, rect.height);
+      w = Math.max(1, rect.width);
+      h = Math.max(1, rect.height);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.width = w + "px";
@@ -87,6 +88,7 @@
 
     function draw(t) {
       ctx.clearRect(0, 0, w, h);
+      var parallax = window.scrollY * 0.35;
       var i, j, a, b;
 
       // edges between close nodes
@@ -94,13 +96,17 @@
         a = nodes[i];
         for (j = i + 1; j < nodes.length; j++) {
           b = nodes[j];
-          var dx = a.x - b.x, dy = a.y - b.y;
+          var dx = a.x - b.x;
+          var dy = (a.y + parallax) - (b.y + parallax);
           var d2 = dx * dx + dy * dy;
           if (d2 < 130 * 130) {
             var alpha = (1 - Math.sqrt(d2) / 130) * 0.45;
             ctx.strokeStyle = "rgba(77,163,255," + alpha.toFixed(3) + ")";
             ctx.lineWidth = 1;
-            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y + parallax);
+            ctx.lineTo(b.x, b.y + parallax);
+            ctx.stroke();
           }
         }
       }
@@ -109,12 +115,16 @@
       if (pointer.active) {
         for (i = 0; i < nodes.length; i++) {
           a = nodes[i];
-          var pdx = pointer.x - a.x, pdy = pointer.y - a.y;
+          var pdx = pointer.x - a.x;
+          var pdy = pointer.y - (a.y + parallax);
           var pd = Math.hypot(pdx, pdy);
           if (pd < 140) {
             ctx.strokeStyle = "rgba(139,92,246," + ((1 - pd / 140) * 0.7).toFixed(3) + ")";
             ctx.lineWidth = 1.2;
-            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(pointer.x, pointer.y); ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y + parallax);
+            ctx.lineTo(pointer.x, pointer.y);
+            ctx.stroke();
           }
         }
       }
@@ -127,7 +137,7 @@
         ctx.shadowColor = "rgba(" + a.c + ",0.8)";
         ctx.shadowBlur = a.core ? 12 : 6;
         ctx.beginPath();
-        ctx.arc(a.x, a.y, a.r * (a.core ? 1.15 : 1) * pulse, 0, Math.PI * 2);
+        ctx.arc(a.x, a.y + parallax, a.r * (a.core ? 1.15 : 1) * pulse, 0, Math.PI * 2);
         ctx.fill();
         ctx.shadowBlur = 0;
       }
@@ -139,7 +149,8 @@
         if (a.x < 0 || a.x > w) a.vx *= -1;
         if (a.y < 0 || a.y > h) a.vy *= -1;
         if (pointer.active) {
-          var rx = a.x - pointer.x, ry = a.y - pointer.y;
+          var rx = a.x - pointer.x;
+          var ry = (a.y + parallax) - pointer.y;
           var rd = Math.hypot(rx, ry);
           if (rd < 110 && rd > 0.01) {
             var f = ((110 - rd) / 110) * 1.6;
@@ -157,18 +168,23 @@
 
     function drawStatic() {
       ctx.clearRect(0, 0, w, h);
+      var parallax = window.scrollY * 0.35;
       var i, j, a, b;
       for (i = 0; i < nodes.length; i++) {
         a = nodes[i];
         for (j = i + 1; j < nodes.length; j++) {
           b = nodes[j];
-          var dx = a.x - b.x, dy = a.y - b.y;
+          var dx = a.x - b.x;
+          var dy = (a.y + parallax) - (b.y + parallax);
           var d2 = dx * dx + dy * dy;
           if (d2 < 130 * 130) {
             var alpha = (1 - Math.sqrt(d2) / 130) * 0.45;
             ctx.strokeStyle = "rgba(77,163,255," + alpha.toFixed(3) + ")";
             ctx.lineWidth = 1;
-            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y + parallax);
+            ctx.lineTo(b.x, b.y + parallax);
+            ctx.stroke();
           }
         }
       }
@@ -177,7 +193,9 @@
         ctx.fillStyle = "rgba(" + a.c + ",0.8)";
         ctx.shadowColor = "rgba(" + a.c + ",0.8)";
         ctx.shadowBlur = a.core ? 12 : 6;
-        ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath();
+        ctx.arc(a.x, a.y + parallax, a.r, 0, Math.PI * 2);
+        ctx.fill();
         ctx.shadowBlur = 0;
       }
     }
@@ -188,20 +206,30 @@
       raf = requestAnimationFrame(frame);
     }
 
-    function setPointer(e) {
+    function updatePointer(e) {
       var rect = canvas.getBoundingClientRect();
+      var y = e.clientY - rect.top;
+      if (e.clientY < rect.top || e.clientY > rect.bottom) {
+        pointer.active = false;
+        pointer.x = -1e4; pointer.y = -1e4;
+        return;
+      }
       pointer.x = e.clientX - rect.left;
-      pointer.y = e.clientY - rect.top;
+      pointer.y = y;
       pointer.active = true;
     }
 
-    canvas.addEventListener("pointermove", setPointer);
-    canvas.addEventListener("pointerdown", setPointer);
-    canvas.addEventListener("pointerup", function () { pointer.active = false; });
-    canvas.addEventListener("pointerleave", function () { pointer.active = false; pointer.x = -1e4; pointer.y = -1e4; });
+    window.addEventListener("pointermove", updatePointer);
+    window.addEventListener("pointerdown", updatePointer);
+    window.addEventListener("pointerup", function () { pointer.active = false; });
 
     resize();
     start();
-    window.addEventListener("resize", function () { resize(); start(); });
+    var resizeTimer;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () { resize(); start(); }, 120);
+    });
+    // redraw on scroll is handled inside the rAF loop (parallax read each frame)
   }
 })();

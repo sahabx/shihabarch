@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/assets/style.css">
 <script src="/assets/main.js" defer></script></head>
 <body>
+<canvas id="arch-canvas" class="art-bg" aria-hidden="true"></canvas>
 <nav class="site-nav">
   <a class="logo" href="/">Shihab’s <span>Architecture</span></a>
   <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -19,17 +20,49 @@
     <a href="/projects.html">Projects</a>
     <a href="/how-i-work.html">How I Work</a>
     <a href="/about.html">About</a>
-    <a href="/tech.html">Tech</a>
-    <a class="cta" href="/ask.html">Ask my AI</a>
   </div>
 </nav>
 <main>
-<div class="page-head"><span class="eyebrow">The person</span><h1>About</h1></div><div class="prose"><p>Mohammad Shahabuddin is an AI & Systems Consultant based in Bahrain. He helps organisations adopt AI and bring order to their data, workflow and infrastructure — with systems they own and no vendor lock-in. His path runs from programmer, to multilingual client-services work, to running all of a multi-country organisation's data and IT — most recently saving it 8,000 BHD upfront and $3,000 a year in software costs. The proof is in the case studies, and this site is built so you can ask questions directly.</p>
-<h2>Contact</h2>
-<p>Email: <a href="mailto:mohammad.sahab.97@gmail.com">mohammad.sahab.97@gmail.com</a> · GitHub: <a href="https://github.com/Sahabx">Sahabx</a> · Services & billing: Abqariyyah (link TBD)</p></div>
+<div class="page-head">
+  <span class="eyebrow">The person</span>
+  <h1>About</h1>
+</div>
+<div class="about-intro prose"><p>I'm Mohammad Shahabuddin, an AI & Systems Consultant based in Bahrain. I help organisations adopt AI and bring order to their data, workflow and infrastructure — with systems they own and no vendor lock-in. My path runs from programmer, to multilingual client-services work, to running all of a multi-country organisation's data and IT — most recently saving it 8,000 BHD upfront and $3,000 a year in software costs.</p></div>
+<div class="about-loc">
+  <div class="map"><svg class="map-svg" viewBox="0 0 640 320" role="img" aria-label="Stylized map showing Bahrain">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c1120"/><stop offset="1" stop-color="#0a0f1d"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="320" fill="url(#sea)"/>
+  <g class="map-grid" stroke="#1e2a44" stroke-width="1" fill="none">
+    <path d="M0 80h640M0 160h640M0 240h640M160 0v320M320 0v320M480 0v320"/>
+  </g>
+  <path class="land" d="M32 300 L70 238 L54 182 L130 150 L120 90 L210 70 L250 122 L236 202 L294 232 L292 300 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
+  <path class="land" d="M470 300 L470 216 L430 192 L406 206 L402 254 L432 300 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
+  <path class="land bahrain" d="M374 138 l14 -4 8 12 -6 14 -16 4 -8 -12 z" fill="#151e31" stroke="#4da3ff" stroke-width="2"/>
+  <circle class="pin-ring" cx="382" cy="150" r="30" fill="none" stroke="#4da3ff" stroke-width="1.5"/>
+  <circle class="pin-ring r2" cx="382" cy="150" r="46" fill="none" stroke="#4da3ff" stroke-width="1"/>
+  <circle cx="382" cy="150" r="6" fill="#8b5cf6" stroke="#fff" stroke-width="2"/>
+  <text x="382" y="112" text-anchor="middle" fill="#e8edf6" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="700">Bahrain</text>
+  <text x="382" y="130" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="11">26.1°N, 50.6°E</text>
+</svg><p class="map-cap">Bahrain · 26.1°N, 50.6°E</p></div>
+  <div class="loc-copy prose"><p>Based in Bahrain, serving clients remotely across the Gulf and beyond. The case studies below are the proof of how I work.</p></div>
+</div>
+<div class="about-contact">
+  <div class="sec-head"><span class="eyebrow">Contact</span><h2>Get in touch</h2></div>
+  <div class="contact-grid"><a class="contact" href="mailto:mohammad.sahab.97@gmail.com">
+  <span class="contact-icon"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="26" height="20" rx="3"/><path d="M3 9l13 9 13-9"/></svg></span>
+  <span class="contact-txt"><b>Email</b><span>mohammad.sahab.97@gmail.com</span></span>
+</a><a class="contact" href="https://github.com/Sahabx" target="_blank" rel="noopener">
+  <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.73.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.66.41.36.77 1.05.77 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></span>
+  <span class="contact-txt"><b>GitHub</b><span>Sahabx</span></span>
+</a></div>
+</div>
 </main>
 <footer><div class="inner">
   <p><b style="font-family:'Space Grotesk'">Shihab’s Architecture</b> · Mohammad Shahabuddin · Bahrain</p>
-  <p class="mono"><a href="/case-studies/">Case studies</a> · <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · <a href="/tech.html">plain-English toolkit</a></p>
+  <p class="mono"><a href="/case-studies/">Case studies</a> · <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a></p>
 </div></footer>
 </body></html>
