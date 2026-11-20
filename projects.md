@@ -7,6 +7,20 @@ status: reviewed
 
 Selected projects. Internal tools are confidential by design — a live demonstration can be arranged on request.
 
+## Qbix Productions — Live website
+Web development and digital production services site, built and shipped end to end.
+- Tag: Payment integration
+- Tag: Branding
+- [qbixproductions.com](https://qbixproductions.com)
+
+## Path to Peace — Live website
+Outreach and care platform — also the public face of the self-hosted Twenty CRM deployment.
+- [pathtopeace.online](https://pathtopeace.online)
+
+## Discover Islam Society — Live website
+Organization website for Discover Islam Society — the multi-country outreach and operations engine behind the metrics on this site.
+- [discoverislamsociety.org](https://discoverislamsociety.org)
+
 ## Chatwoot Omnichannel Inbox — Internal tool
 A self-hosted, customized Chatwoot inbox — one shared workspace for high-volume multi-channel conversations, with a custom AI assist layer for agents.
 - 340,000 — conversations handled in 5 months
@@ -25,17 +39,8 @@ Forked the open-source Twenty CRM and added row-level security, white-labelling 
 
 ## WhatsApp → CRM Integration — Integration
 An automated user-data pipeline that captures WhatsApp contacts into the CRM and keeps every record current — no manual entry.
+- Tag: Actively monitoring 34 groups
 - 70,000 — entries kept up to date
 - Automated — data pipeline end to end
-
-## Qbix Productions — Live website
-Web development and digital production services site, built and shipped end to end.
-- [qbixproductions.com](https://qbixproductions.com)
-
-## Path to Peace — Live website
-Outreach and care platform — also the public face of the self-hosted Twenty CRM deployment.
-- [pathtopeace.online](https://pathtopeace.online)
-
-## Discover Islam Society — Live website
-Organization website for Discover Islam Society — the multi-country outreach and operations engine behind the metrics on this site.
-- [discoverislamsociety.org](https://discoverislamsociety.org)
+- 34 — groups actively monitored
+- Demonstration available on request

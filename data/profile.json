@@ -175,11 +175,45 @@
   ],
   "projects": [
     {
+      "id": "p4",
+      "name": "Qbix Productions",
+      "kind": "Live website",
+      "live": true,
+      "confidential": false,
+      "tags": ["Payment integration", "Branding"],
+      "summary": "Web development and digital production services site, built and shipped end to end.",
+      "link": "https://qbixproductions.com",
+      "link_label": "qbixproductions.com"
+    },
+    {
+      "id": "p5",
+      "name": "Path to Peace",
+      "kind": "Live website",
+      "live": true,
+      "confidential": false,
+      "tags": [],
+      "summary": "Outreach and care platform — also the public face of the self-hosted Twenty CRM deployment.",
+      "link": "https://pathtopeace.online",
+      "link_label": "pathtopeace.online"
+    },
+    {
+      "id": "p6",
+      "name": "Discover Islam Society",
+      "kind": "Live website",
+      "live": true,
+      "confidential": false,
+      "tags": [],
+      "summary": "Organization website for Discover Islam Society — the multi-country outreach and operations engine behind the metrics on this site.",
+      "link": "https://discoverislamsociety.org",
+      "link_label": "discoverislamsociety.org"
+    },
+    {
       "id": "p1",
       "name": "Chatwoot Omnichannel Inbox",
       "kind": "Internal tool",
       "confidential": true,
       "demo": "Demonstration available on request",
+      "tags": [],
       "summary": "A self-hosted, customized Chatwoot inbox — one shared workspace for high-volume multi-channel conversations, with a custom AI assist layer for agents.",
       "metrics": [
         {"value": "340,000", "label": "conversations handled in 5 months"},
@@ -195,6 +229,7 @@
       "kind": "Internal tool",
       "confidential": true,
       "demo": "Demonstration available on request",
+      "tags": [],
       "summary": "Forked the open-source Twenty CRM and added row-level security, white-labelling and a telemetry gate, then deployed it self-hosted as the organization's master data platform.",
       "metrics": [
         {"value": "Row-level security", "label": "engine added to the fork"},
@@ -206,43 +241,15 @@
       "id": "p3",
       "name": "WhatsApp → CRM Integration",
       "kind": "Integration",
-      "confidential": false,
-      "demo": "",
+      "confidential": true,
+      "demo": "Demonstration available on request",
+      "tags": ["Actively monitoring 34 groups"],
       "summary": "An automated user-data pipeline that captures WhatsApp contacts into the CRM and keeps every record current — no manual entry.",
       "metrics": [
         {"value": "70,000", "label": "entries kept up to date"},
-        {"value": "Automated", "label": "data pipeline end to end"}
+        {"value": "Automated", "label": "data pipeline end to end"},
+        {"value": "34", "label": "groups actively monitored"}
       ]
-    },
-    {
-      "id": "p4",
-      "name": "Qbix Productions",
-      "kind": "Live website",
-      "confidential": false,
-      "demo": "",
-      "summary": "Web development and digital production services site, built and shipped end to end.",
-      "link": "https://qbixproductions.com",
-      "link_label": "qbixproductions.com"
-    },
-    {
-      "id": "p5",
-      "name": "Path to Peace",
-      "kind": "Live website",
-      "confidential": false,
-      "demo": "",
-      "summary": "Outreach and care platform — also the public face of the self-hosted Twenty CRM deployment.",
-      "link": "https://pathtopeace.online",
-      "link_label": "pathtopeace.online"
-    },
-    {
-      "id": "p6",
-      "name": "Discover Islam Society",
-      "kind": "Live website",
-      "confidential": false,
-      "demo": "",
-      "summary": "Organization website for Discover Islam Society — the multi-country outreach and operations engine behind the metrics on this site.",
-      "link": "https://discoverislamsociety.org",
-      "link_label": "discoverislamsociety.org"
     }
   ],
   "engagement_modes": [
@@ -254,7 +261,7 @@
     {"id": "conversations", "value": 700000, "label": "conversations handled across 20+ countries (2 years)", "verify": false},
     {"id": "contacts", "value": 70542, "label": "leads generated in the span of two years", "verify": false},
     {"id": "reach", "value": "≈800,000/month", "label": "average monthly campaign reach (3,000 BHD managed budget)", "verify": false},
-    {"id": "saved_bhd", "value": 8000, "label": "BHD saved by replacing an expensive vendor quote with self-hosted software", "verify": false},
+    {"id": "saved_bhd", "value": 8000, "label": "BHD saved in just one project (vs. the vendor quote)", "verify": false},
     {"id": "saved_usd_yr", "value": 3000, "label": "USD/year of recurring software subscriptions eliminated", "verify": false},
     {"id": "countries", "value": "20+", "label": "countries reached by the campaigns and operations", "verify": false},
     {"id": "agents", "value": "≈100", "label": "team members supported on the platform", "verify": false},

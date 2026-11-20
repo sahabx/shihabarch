@@ -22,7 +22,7 @@
   {
    "id": "saved_bhd",
    "value": 8000,
-   "label": "BHD saved by replacing an expensive vendor quote with self-hosted software",
+   "label": "BHD saved in just one project (vs. the vendor quote)",
    "verify": false
   },
   {
