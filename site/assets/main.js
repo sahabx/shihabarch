@@ -55,7 +55,18 @@
     var pointer = { x: -1e4, y: -1e4, active: false };
     var palette = ["77,163,255", "139,92,246", "192,132,252", "52,211,153"];
 
+    // Position the canvas to sit exactly behind the first section of the page
+    // (the hero on the landing, otherwise the page header), below the sticky nav.
+    function layoutCanvas() {
+      var sec = document.querySelector("main .hero, main .cs-head, main .page-head");
+      if (!sec) return;
+      var r = sec.getBoundingClientRect();
+      canvas.style.top = Math.round(r.top + window.scrollY) + "px";
+      canvas.style.height = Math.round(r.height) + "px";
+    }
+
     function resize() {
+      layoutCanvas();
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       var rect = canvas.getBoundingClientRect();
       w = Math.max(1, rect.width);
@@ -63,7 +74,6 @@
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.width = w + "px";
-      canvas.style.height = h + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       seed();
     }
@@ -225,11 +235,16 @@
 
     resize();
     start();
+
     var resizeTimer;
     window.addEventListener("resize", function () {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () { resize(); start(); }, 120);
     });
-    // redraw on scroll is handled inside the rAF loop (parallax read each frame)
+    // Re-measure once fonts/first paint settle so the height matches the section exactly.
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { resize(); start(); });
+    }
+    window.addEventListener("load", function () { resize(); start(); });
   }
 })();
