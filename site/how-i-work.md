@@ -16,3 +16,13 @@ Five habits you'll see on every project — and can check against the case studi
 4. **Your systems, your data.** Everything runs on infrastructure you own, with permissive licenses and backups before changes. If a vendor locks the door one day — as happened on a client project — you keep working.
 
 5. **AI as my assistant, never my replacement.** AI helps me research, build, document, and check my work — but requirements, verdicts, and review stay human. This very site is built so your AI can ask it questions too.
+
+## How we engage
+
+| Mode | What it looks like | When it fits |
+|---|---|---|
+| **Project** | A fixed-scope build we agree up front | You know what you need |
+| **Consultancy** | An honest review of what you have and what to pick | You're not sure where to start |
+| **Maintenance** | I keep it running and improving, month to month | After a build, or for existing systems |
+
+*Pricing on request — simple, and stated before we start.*

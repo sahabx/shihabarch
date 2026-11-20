@@ -1,12 +1,20 @@
-# Mohammad Shahabuddin — shihabarch.tech
-> AI & Systems Consultant — I help businesses adopt AI and improve their data, workflow and infrastructure
+# Shihab’s Architecture — Mohammad Shahabuddin
+> AI & Systems Consultant — I help businesses adopt AI and bring order to their data, workflows, and infrastructure.
 
 Bahrain-based AI & Systems Consultant. Self-hosted infrastructure, data platforms,
-workflow automation and AI adoption for NGOs and SMEs. Named reference:
-Discover Islam Society. Business/services entity: Abqariyyah.
+workflow automation and AI adoption for NGOs and SMEs. Brand: Shihab's Architecture.
+Named reference: Discover Islam Society.
 
 ## Machine-readable data
-- [profile.json](https://shihabarch.tech/data/profile.json): canonical structured facts — roles, metrics, skills, stack
+- [profile.json](https://shihabarch.tech/data/profile.json): canonical structured facts — roles, metrics, specialties, solutions, projects
+
+## Pages
+- [Solutions](https://shihabarch.tech/solutions.md)
+- [Projects](https://shihabarch.tech/projects.md)
+- [How I Work](https://shihabarch.tech/how-i-work.md)
+- [About](https://shihabarch.tech/about.md)
+- [Tech Toolkit — terminology in plain English](https://shihabarch.tech/tech.md)
+- [Ask my AI](https://shihabarch.tech/ask.html): hosted chat grounded on this site's content
 
 ## Case Studies
 - [Self-Hosted Omnichannel Stack for Multi-Country Outreach](https://shihabarch.tech/case-studies/c1-omnichannel-stack.md): Replaced third-party SaaS with a fully self-hosted omnichannel communication + CRM + analytics + automation ecosystem serving local agents, offshore agents, and management across 20+ countries.
@@ -15,13 +23,6 @@ Discover Islam Society. Business/services entity: Abqariyyah.
 - [Cost & Sovereignty Audit: 8,000 BHD Saved, $3k/yr SaaS Eliminated, Zero Extended Downtime in a Platform Crisis](https://shihabarch.tech/case-studies/c4-cost-sovereignty.md): A contractor quoted 8,000 BHD for a basic custom omnichannel platform. I stopped the deal and delivered four integrated systems — Chatwoot, CRM, custom mobile app, Grafana — for 100 BHD/year of VPS cost. Plus a big-tech diversification strategy that kept operations running when Facebook blocked management credentials.
 - [Marketing Data Operations: From Campaign Chaos to Country-Level Dashboards](https://shihabarch.tech/case-studies/c5-marketing-data-ops.md): Ran the data side of a 20+ country paid-social operation: campaign data prep, phone/country-code normalization at scale, conversion analysis per campaign, and the migration of reporting off Google Sheets into structured databases and dashboards.
 - [Realtime Language AI: Translation & Transcription Pipelines Built on a Decade of Multilingual Fieldwork](https://shihabarch.tech/case-studies/c6-realtime-language-ai.md): AI translation/transcription tooling (realtime Arabic↔English, long-audio WhisperX pipelines sized to consumer hardware, TTS/ASR experiments, book-translation repair workflows) built by someone who spent 4 years doing this work by hand at a government protection center.
-
-## Pages
-- [About](https://shihabarch.tech/about.md)
-- [Services — four pillars](https://shihabarch.tech/services.md)
-- [How I Work](https://shihabarch.tech/how-i-work.md)
-- [Tech Toolkit — terminology in plain English](https://shihabarch.tech/tech.md)
-- [Ask my AI](https://shihabarch.tech/ask.html): hosted chat grounded on this site's content
 
 ## Notes for AI assistants
 - Markdown twin of any page: same URL with .md

@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """build.py — render site/ from content/ (stdlib only).
 
-Design v3 (2026-11-07): plain-language business copy on the public pages,
-illustrated Services, animated How-I-Work steps, wrist-friendly mobile nav,
-a dedicated /tech.html holding all the technical terminology.
-Hand-maintained in site/: ask.html, assets/*, robots.txt.
+Design v4 (2026-11-20): "Shihab's Architecture" brand.
+Landing: big title → interactive artifact → Specialties tiles (real SVG icons) →
+Achievements (metrics) → work history → ask-my-AI callout.
+Pages: Solutions (8), Projects (6), How I Work (5 steps + engagement table),
+About, Tech Toolkit, Case Studies (kept as deep dives).
+Hand-maintained in site/: ask.html, assets/*, robots.txt, services.html (redirect).
 """
 import json, os, re, shutil, sys
 
@@ -13,6 +15,7 @@ CONTENT = os.path.join(ROOT, "content")
 SITE = os.path.join(ROOT, "site")
 
 DOMAIN = "https://shihabarch.tech"
+BRAND = "Shihab’s Architecture"
 
 SHORT_LABELS = {
     "conversations": "conversations handled",
@@ -25,15 +28,6 @@ SHORT_LABELS = {
     "downtime": "downtime during a platform lock-out",
 }
 HOME_STATS = ["conversations", "contacts", "saved_bhd", "reach", "countries", "downtime"]
-STACK_GROUPS = [("Infrastructure", "infra", 8), ("Data", "data", 8), ("Apps & Channels", "apps", 8), ("AI", "ai", 7)]
-
-# pillar heading name → case-study ids shown under each Services card
-PILLAR_CASES = {
-    "AI Adoption": ["c1-omnichannel-stack", "c6-realtime-language-ai"],
-    "Data": ["c2-data-platform-rls", "c5-marketing-data-ops"],
-    "Workflow": ["c3-nmc-pipeline", "c1-omnichannel-stack"],
-    "Systems": ["c4-cost-sovereignty"],
-}
 
 # ---------- frontmatter ----------
 def parse_md(path):
@@ -115,60 +109,28 @@ def strip_business_cut(md):
     return re.sub(r"## business_cut\n.*?(?=\n## |\Z)", "", md, flags=re.S).strip()
 
 def strip_first_h1(body):
-    """page-head already renders the title; keep the .md twin but drop the h1 from HTML."""
     return re.sub(r"^[ \t\r\n]*#\s+[^\n]*\n*", "", body, count=1).strip()
 
 def tags(pillars):
     return "".join(f'<span class="tag {p}">{p.replace("-", " ")}</span>' for p in pillars)
 
-# ---------- illustrations ----------
-def illu_ai():
-    return """<svg class="illu" viewBox="0 0 96 96" aria-hidden="true">
-<defs><linearGradient id="ig-ai" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4da3ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
-<rect x="18" y="24" width="58" height="38" rx="12" fill="#151e31" stroke="url(#ig-ai)" stroke-width="2"/>
-<circle cx="36" cy="43" r="3" fill="#4da3ff" class="a1"/><circle cx="47" cy="43" r="3" fill="#8b5cf6" class="a2"/><circle cx="58" cy="43" r="3" fill="#c084fc" class="a3"/>
-<path d="M27 54 Q47 47 67 54" stroke="url(#ig-ai)" stroke-width="2" fill="none" stroke-linecap="round"/>
-<path class="spark" d="M78 14 l2.6 6.2 6.2 2.6 -6.2 2.6 -2.6 6.2 -2.6 -6.2 -6.2 -2.6 6.2 -2.6 z" fill="#c084fc"/>
-<path class="spark s2" d="M16 60 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6 z" fill="#4da3ff"/>
-<circle cx="82" cy="52" r="2.2" fill="#8b5cf6" class="a2"/>
-</svg>"""
+# ---------- icons (stroke = currentColor) ----------
+ICON_SPAN = '<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{}</svg>'
 
-def illu_data():
-    return """<svg class="illu" viewBox="0 0 96 96" aria-hidden="true">
-<defs><linearGradient id="ig-data" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4da3ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
-<ellipse cx="34" cy="26" rx="16" ry="6.5" fill="#151e31" stroke="url(#ig-data)" stroke-width="2"/>
-<path d="M18 26 v15 a16 6.5 0 0 0 32 0 v-15" fill="#151e31" stroke="url(#ig-data)" stroke-width="2"/>
-<path d="M18 41 v15 a16 6.5 0 0 0 32 0 v-15" fill="none" stroke="url(#ig-data)" stroke-width="2"/>
-<path class="draw" d="M74 60 v-26 M64 42 l10 -10 10 10" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path class="spark s2" d="M74 16 l1.5 3.6 3.6 1.5 -3.6 1.5 -1.5 3.6 -1.5 -3.6 -3.6 -1.5 3.6 -1.5 z" fill="#c084fc"/>
-</svg>"""
+ICONS = {
+    "servers": '<rect x="5" y="4" width="22" height="9" rx="2"/><path d="M9 8.5h.01M12 8.5h6"/><rect x="5" y="18" width="22" height="9" rx="2"/><path d="M9 22.5h.01M12 22.5h6"/>',
+    "data": '<ellipse cx="16" cy="6.5" rx="8.5" ry="3.2"/><path d="M7.5 6.5v18c0 1.8 3.8 3.2 8.5 3.2s8.5-1.4 8.5-3.2v-18"/><path d="M7.5 15.5c0 1.8 3.8 3.2 8.5 3.2s8.5-1.4 8.5-3.2"/>',
+    "ai": '<rect x="8" y="8" width="16" height="16" rx="3"/><rect x="13" y="13" width="6" height="6" rx="1.5" fill="currentColor" stroke="none"/><path d="M16 3v2.5M16 26.5V29M3 16h2.5M26.5 16H29M6.8 6.8l1.8 1.8M23.4 23.4l1.8 1.8M25.2 6.8l-1.8 1.8M8.6 23.4l-1.8 1.8"/>',
+    "automation": '<circle cx="16" cy="16" r="4"/><path d="M16 2.5v3M16 26.5v3M2.5 16h3M26.5 16h3M6.2 6.2l2.1 2.1M23.7 23.7l2.1 2.1M25.8 6.2l-2.1 2.1M8.3 23.7l-2.1 2.1"/>',
+    "business": '<rect x="3" y="5" width="9" height="7" rx="1.5"/><rect x="20" y="5" width="9" height="7" rx="1.5"/><rect x="11.5" y="20" width="9" height="7" rx="1.5"/><path d="M7.5 12v4M24.5 12v4M7.5 16h5M24.5 16h-5M16 16v4"/>',
+    "communication": '<path d="M4 7a3 3 0 0 1 3-3h18a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H13l-6 4v-4H7a3 3 0 0 1-3-3z"/><path d="M10 11.5h12M10 16h7"/>',
+    "social": '<circle cx="9" cy="16" r="4"/><circle cx="23" cy="6" r="2.5"/><circle cx="23" cy="26" r="2.5"/><path d="M12.5 14l8-6M12.5 18l8 6"/>',
+    "security": '<path d="M16 3l9 4v7c0 5-3.8 8.6-9 10.5C10.8 22.6 7 19 7 14V7z"/><path d="M12 16l2.5 2.5L20.5 12"/>',
+    "consultation": '<circle cx="16" cy="16" r="11"/><path d="M16 10v6l4 2"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/>',
+}
 
-def illu_workflow():
-    return """<svg class="illu" viewBox="0 0 96 96" aria-hidden="true">
-<defs><linearGradient id="ig-wf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4da3ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
-<rect x="12" y="32" width="20" height="20" rx="6" fill="#151e31" stroke="url(#ig-wf)" stroke-width="2"/>
-<rect x="38" y="32" width="20" height="20" rx="6" fill="#151e31" stroke="url(#ig-wf)" stroke-width="2"/>
-<rect x="64" y="32" width="20" height="20" rx="6" fill="#151e31" stroke="url(#ig-wf)" stroke-width="2"/>
-<circle cx="22" cy="42" r="3" fill="#4da3ff" class="a1"/><circle cx="48" cy="42" r="3" fill="#8b5cf6"/><circle cx="74" cy="42" r="3" fill="#c084fc"/>
-<path class="flow" d="M32 42 h5" stroke="url(#ig-wf)" stroke-width="2" stroke-linecap="round"/>
-<path d="M38 39 l4 3 -4 3 z" fill="#8b5cf6"/>
-<path class="flow f2" d="M58 42 h5" stroke="url(#ig-wf)" stroke-width="2" stroke-linecap="round"/>
-<path d="M64 39 l4 3 -4 3 z" fill="#c084fc"/>
-<path class="spark" d="M46 16 l2 4.8 4.8 2 -4.8 2 -2 4.8 -2 -4.8 -4.8 -2 4.8 -2 z" fill="#4da3ff"/>
-</svg>"""
-
-def illu_systems():
-    return """<svg class="illu" viewBox="0 0 96 96" aria-hidden="true">
-<defs><linearGradient id="ig-sys" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4da3ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
-<rect x="16" y="16" width="42" height="20" rx="5" fill="#151e31" stroke="url(#ig-sys)" stroke-width="2"/>
-<circle cx="24" cy="26" r="2" fill="#34d399" class="a1"/><circle cx="32" cy="26" r="2" fill="#4da3ff"/><path d="M40 23 h12" stroke="#2e4a78" stroke-width="2" stroke-linecap="round"/>
-<rect x="16" y="42" width="42" height="20" rx="5" fill="#151e31" stroke="url(#ig-sys)" stroke-width="2"/>
-<circle cx="24" cy="52" r="2" fill="#8b5cf6" class="a2"/><circle cx="32" cy="52" r="2" fill="#4da3ff"/><path d="M40 49 h12" stroke="#2e4a78" stroke-width="2" stroke-linecap="round"/>
-<path d="M74 20 h10 v16 a10 11 0 0 1 -10 11 a10 11 0 0 1 -10 -11 v-16 z" fill="#151e31" stroke="url(#ig-sys)" stroke-width="2"/>
-<path class="draw" d="M66 28 l4 4 8 -9" fill="none" stroke="#34d399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>"""
-
-ILLUS = {"AI Adoption": illu_ai(), "Data": illu_data(), "Workflow": illu_workflow(), "Systems": illu_systems()}
+def icon(kind):
+    return ICON_SPAN.format(ICONS.get(kind, ICONS["consultation"]))
 
 def step_icon(i):
     icons = {
@@ -181,26 +143,28 @@ def step_icon(i):
     return icons.get(i, icons[1])
 
 # ---------- page shell ----------
-NAV = """<nav>
-  <a class="logo" href="/">MS<span>◆</span></a>
+NAV = """<nav class="site-nav">
+  <a class="logo" href="/">Shihab’s <span>Architecture</span></a>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="navlinks">
-    <a href="/case-studies/">Case Studies</a>
-    <a href="/services.html">Services</a>
+    <a href="/solutions.html">Solutions</a>
+    <a href="/projects.html">Projects</a>
     <a href="/how-i-work.html">How I Work</a>
     <a href="/about.html">About</a>
     <a href="/tech.html">Tech</a>
+    <a class="cta" href="/ask.html">Ask my AI</a>
   </div>
-  <a class="cta" href="/ask.html">Ask my AI</a>
 </nav>"""
 
 def page(title, body, jsonld=None, desc="AI & Systems Consultant — Bahrain. Self-hosted infrastructure, data platforms and AI adoption, proven at multi-country scale."):
+    full_title = title if title == BRAND else f"{title} — {BRAND}"
     ld = f'<script type="application/ld+json">{json.dumps(jsonld)}</script>' if jsonld else ""
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title} — Mohammad Shahabuddin</title>
+<title>{full_title}</title>
 <meta name="description" content="{desc}">
-<meta property="og:title" content="{title} — Mohammad Shahabuddin">
+<meta property="og:title" content="{full_title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{DOMAIN}/">
@@ -213,75 +177,125 @@ def page(title, body, jsonld=None, desc="AI & Systems Consultant — Bahrain. Se
 {body}
 </main>
 <footer><div class="inner">
-  <p><b style="font-family:'Space Grotesk'">Mohammad Shahabuddin</b> · AI &amp; Systems Consultant · Bahrain</p>
-  <p class="mono">Machine-readable: <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · <a href="/tech.html">plain-English toolkit</a></p>
+  <p><b style="font-family:'Space Grotesk'">{BRAND}</b> · Mohammad Shahabuddin · Bahrain</p>
+  <p class="mono"><a href="/case-studies/">Case studies</a> · <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · <a href="/tech.html">plain-English toolkit</a></p>
 </div></footer>
 </body></html>
 """
 
-# ---------- services renderer ----------
-def render_services(body, title):
-    parts = re.split(r"\n(?=## )", body.strip())
-    intro_html = ""
-    pillar_blocks, engagement = [], ""
-    for p in parts:
-        m = re.match(r"## (.+?)\n([\s\S]*)", p)
-        if not m:
-            # leading "# title" + intro
-            intro_html = md_to_html(strip_first_h1(p))
-            continue
-        heading, content = m.group(1), m.group(2).strip()
-        if heading.startswith("How we engage"):
-            engagement = md_to_html(content)
-        else:
-            pillar_blocks.append((heading, content))
+# ---------- landing section renderers ----------
+def render_specialties(specs):
     cards = []
-    for heading, content in pillar_blocks:
-        name, _, tagline = heading.partition(" — ")
-        items = [x.strip()[2:] for x in re.findall(r"(?m)^[-*] (.+)$", content)]
-        items_html = "".join(f"<li>{inline(x)}</li>" for x in items)
-        cases = PILLAR_CASES.get(name, [])
-        proof = ""
-        if cases:
-            links = " · ".join(f'<a href="/case-studies/{c}.html">C{c[1]}</a>' for c in cases)
-            proof = f'<p class="svc-proof">See how → {links}</p>'
-        illu = ILLUS.get(name, illu_ai())
-        cards.append(f"""<section class="svc reveal">
-  <div class="illus">{illu}</div>
-  <div class="svc-body">
-    <h2>{inline(name)}</h2>
-    <p class="svc-tag">{inline(tagline)}</p>
-    <ul>{items_html}</ul>
-    {proof}
+    for s in specs:
+        items = "".join(f"<li>{inline(x)}</li>" for x in s["items"])
+        cards.append(f"""<article class="spec reveal">
+  <div class="spec-icon">{icon(s["icon"])}</div>
+  <div class="spec-body">
+    <h3>{inline(s["name"])}</h3>
+    <p class="spec-tag">{inline(s["tagline"])}</p>
+    <ul class="spec-chips">{items}</ul>
   </div>
-</section>""")
+</article>""")
+    return f"""<section class="specials" id="specialties">
+  <div class="sec-head">
+    <span class="eyebrow">Specialties</span>
+    <h2>What I build & run</h2>
+    <p>Six areas, one operating system of work — from the server in the rack to the AI answering a customer. Every item below is in active, production use.</p>
+  </div>
+  <div class="spec-grid">{''.join(cards)}</div>
+</section>"""
+
+def render_solutions_page(solutions):
+    cards = "".join(f"""<article class="soln reveal">
+  <div class="soln-icon">{icon(s["icon"])}</div>
+  <div class="soln-body">
+    <h2>{inline(s["name"])}</h2>
+    <p>{inline(s["summary"])}</p>
+  </div>
+</article>""" for s in solutions)
     return f"""<div class="page-head">
-  <span class="eyebrow">What I do</span>
-  <h1>{inline(title)}</h1>
-  <div class="lead">{intro_html}</div>
+  <span class="eyebrow">Solutions I provide</span>
+  <h1>Solutions</h1>
+  <p class="lead">Eight ways I help a business own its technology — from the database it runs on to the AI that answers its customers. No lock-in, no surprise bills.</p>
 </div>
-<div class="svc-grid">{''.join(cards)}</div>
-<div class="prose engage">{engagement}</div>"""
+<div class="soln-grid">{cards}</div>"""
+
+def render_projects_page(projects):
+    cards = []
+    for p in projects:
+        badges = [f'<span class="pkind">{p["kind"]}</span>']
+        if p.get("confidential"):
+            badges.append('<span class="pconf">Confidential</span>')
+        metrics = "".join(f'<span class="pmetric"><b>{m["value"]}</b>{m["label"]}</span>' for m in p.get("metrics", []) if m.get("value"))
+        mhtml = f'<div class="pmetrics">{metrics}</div>' if metrics else ""
+        demo = f'<p class="pdemo">{p["demo"]} · <a href="/about.html">contact me</a> to arrange it.</p>' if p.get("demo") else ""
+        link = f'<a class="btn ghost" href="{p["link"]}" target="_blank" rel="noopener">{p.get("link_label", "Visit site")} ↗</a>' if p.get("link") else ""
+        cards.append(f"""<article class="proj reveal">
+  <div class="proj-head"><div class="badges">{''.join(badges)}</div><h2>{inline(p["name"])}</h2></div>
+  <p class="proj-sum">{inline(p["summary"])}</p>
+  {mhtml}
+  {demo}
+  <div class="proj-foot">{link}</div>
+</article>""")
+    return f"""<div class="page-head">
+  <span class="eyebrow">Projects</span>
+  <h1>Selected Projects</h1>
+  <p class="lead">Internal tools are confidential by design — a live demonstration can be arranged on request. Public sites are linked below and running.</p>
+</div>
+<div class="proj-grid">{''.join(cards)}</div>"""
 
 # ---------- how-i-work renderer ----------
 def render_how_i_work(body):
-    steps_html = []
-    segs = re.split(r"\n(?=\d+\.\s)", body.strip())
-    intro = md_to_html(strip_first_h1(segs[0]))
+    body = strip_first_h1(body)
+    eng_html = ""
+    m = re.search(r"\n## How we engage\s*\n([\s\S]*?)\Z", body)
+    if m:
+        eng_html = md_to_html(m.group(1).strip())
+        body = body[:m.start()]
+    body = body.strip()
+    segs = re.split(r"\n(?=\d+\.\s)", body)
+    intro = md_to_html(segs[0])
+    steps = []
     for i, seg in enumerate(segs[1:], 1):
-        m = re.match(r"(\d+)\.\s+\*\*(.+?)\*\*\.?\s*([\s\S]*)", seg)
-        if not m: continue
-        title, text = m.group(2), m.group(3).strip()
-        steps_html.append(f"""<li class="step reveal">
+        m2 = re.match(r"(\d+)\.\s+\*\*(.+?)\*\*\.?\s*([\s\S]*)", seg)
+        if not m2: continue
+        title, text = m2.group(2), m2.group(3).strip()
+        steps.append(f"""<li class="step reveal">
   <div class="step-badge">{step_icon(i)}<span>{i}</span></div>
   <div class="step-body"><h3>{inline(title)}</h3><p>{inline(text)}</p></div>
 </li>""")
+    engagement = f'<div class="engage prose"><div class="sec-head"><span class="eyebrow">Engagement</span><h2>How we engage</h2></div>{eng_html}</div>' if eng_html else ""
     return f"""<div class="page-head">
   <span class="eyebrow">Method</span>
   <h1>How I Work</h1>
   <div class="lead">{intro}</div>
 </div>
-<ol class="steps">{''.join(steps_html)}</ol>"""
+<ol class="steps">{''.join(steps)}</ol>
+{engagement}"""
+
+# ---------- markdown twins generated from structured data ----------
+def solutions_md(solutions):
+    out = ["---", "title: Solutions", "status: reviewed", "---", "",
+           "# Solutions", "",
+           "Eight ways I help a business own its technology — from the database it runs on to the AI that answers its customers.", ""]
+    for s in solutions:
+        out.append(f"## {s['name']}")
+        out.append(s["summary"]); out.append("")
+    return "\n".join(out)
+
+def projects_md(projects):
+    out = ["---", "title: Projects", "status: reviewed", "---", "",
+           "# Projects", "",
+           "Selected projects. Internal tools are confidential by design — a live demonstration can be arranged on request.", ""]
+    for p in projects:
+        out.append(f"## {p['name']} — {p['kind']}")
+        out.append(p["summary"])
+        for m in p.get("metrics", []):
+            out.append(f"- {m['value']} — {m['label']}")
+        if p.get("demo"): out.append(f"- {p['demo']}")
+        if p.get("link"): out.append(f"- [{p['link_label']}]({p['link']})")
+        out.append("")
+    return "\n".join(out)
 
 # ---------- build ----------
 def main():
@@ -353,12 +367,10 @@ def main():
 </div>
 <div class="cards">{"".join(cards)}</div>"""))
 
-    # content pages: about, tech (generic), services & how-i-work (custom)
-    for fn, out, eyebrow, custom in [
-        ("about.md", "about.html", "The person", False),
-        ("tech.md", "tech.html", "The toolkit", False),
-        ("services.md", "services.html", "What I do", True),
-        ("how-i-work.md", "how-i-work.html", "Method", True),
+    # content pages: about, tech (generic markdown)
+    for fn, out, eyebrow in [
+        ("about.md", "about.html", "The person"),
+        ("tech.md", "tech.html", "The toolkit"),
     ]:
         p = os.path.join(CONTENT, fn)
         if not os.path.exists(p):
@@ -366,18 +378,28 @@ def main():
         fm, body = parse_md(p)
         if fm.get("status") == "draft": warnings.append(f"draft: {fn}")
         t = fm.get("title", out)
-        if custom:
-            rendered = render_services(body, t) if fn == "services.md" else render_how_i_work(body)
-        else:
-            rendered = f'<div class="page-head"><span class="eyebrow">{eyebrow}</span><h1>{inline(t)}</h1></div><div class="prose">{md_to_html(strip_first_h1(body))}</div>'
-        open(os.path.join(SITE, out), "w", encoding="utf-8").write(page(t, rendered, desc=fm.get("note", "") or f"{t} — Mohammad Shahabuddin"))
-        shutil.copyfile(p, os.path.join(SITE, fn))  # md twin
+        rendered = f'<div class="page-head"><span class="eyebrow">{eyebrow}</span><h1>{inline(t)}</h1></div><div class="prose">{md_to_html(strip_first_h1(body))}</div>'
+        open(os.path.join(SITE, out), "w", encoding="utf-8").write(page(t, rendered, desc=fm.get("note", "") or f"{t} — {BRAND}"))
+        shutil.copyfile(p, os.path.join(SITE, fn))
+
+    # how-i-work (custom)
+    fm, body = parse_md(os.path.join(CONTENT, "how-i-work.md"))
+    open(os.path.join(SITE, "how-i-work.html"), "w", encoding="utf-8").write(
+        page("How I Work", render_how_i_work(body), desc="How I Work — " + BRAND))
+    shutil.copyfile(os.path.join(CONTENT, "how-i-work.md"), os.path.join(SITE, "how-i-work.md"))
+
+    # solutions + projects (structured → page + .md twin)
+    open(os.path.join(SITE, "solutions.html"), "w", encoding="utf-8").write(
+        page("Solutions", render_solutions_page(profile["solutions"]), desc="Solutions I provide — " + BRAND))
+    open(os.path.join(SITE, "solutions.md"), "w", encoding="utf-8").write(solutions_md(profile["solutions"]))
+    open(os.path.join(SITE, "projects.html"), "w", encoding="utf-8").write(
+        page("Projects", render_projects_page(profile["projects"]), desc="Selected Projects — " + BRAND))
+    open(os.path.join(SITE, "projects.md"), "w", encoding="utf-8").write(projects_md(profile["projects"]))
 
     # ---------- index ----------
     person = profile["person"]
     headline = person.get("headline_chosen") or person["headline_candidates"][0]
     head_role = headline.partition("—")[0].strip() or headline
-    stack = profile["stack"]
 
     stats_html = "".join(
         (f'<div class="stat reveal"><b data-count="{metrics[i]["value"]}">{metrics[i]["value"]:,}</b><span>{SHORT_LABELS.get(i, metrics[i]["label"])}</span></div>' if isinstance(metrics[i]["value"], int)
@@ -389,63 +411,34 @@ def main():
         f'<b>{r["title"]}</b> · {r["org"]}' + (f'<p>{inline(r.get("note", ""))}</p>' if r.get("note") else '') + "</li>"
         for r in profile["roles"])
 
-    groups_html = "".join(
-        f'<div class="stackgroup"><b>{label}</b><div class="pills">'
-        + "".join(f'<span class="pill{" hl" if j < 3 else ""}">{s}</span>' for j, s in enumerate(stack.get(key, [])[:n]))
-        + "</div></div>"
-        for label, key, n in STACK_GROUPS)
-    stackcard = f"""<div class="stackcard reveal">
-  <h3><span class="dot"></span>Running in production</h3>
-  {groups_html}
-  <p class="gloss"><a href="/tech.html">What does all this mean? →</a></p>
-</div>"""
-
-    all_stack = [s for key in ("infra", "data", "apps", "ai", "apis") for s in stack.get(key, [])]
-    mq = "".join(f"<span>{s}</span>" for s in all_stack)
-    marquee = f'<div class="marquee"><div class="track">{mq}{mq}</div></div>'
-
-    cards_home = []
-    for i, (fm, _) in enumerate(studies[:4], 1):
-        mid = next((m for m in fm.get("metrics_ids", []) if m in metrics), None)
-        mv = f'{metrics[mid]["value"]:,}' if mid and isinstance(metrics[mid]["value"], int) else (metrics[mid]["value"] if mid else "")
-        cards_home.append(f"""<a class="card reveal" href="/case-studies/{fm['id']}.html">
-  <span class="num">C{i}</span>
-  <div class="tags">{tags(fm.get('pillars', []))}</div>
-  <h3>{inline(fm['title'])}</h3>
-  <p>{inline(fm.get('summary', ''))}</p>
-  <div class="foot"><span>{fm.get('period', '')}</span><span>{f'<b>{mv}</b> ' if mv else ''}<span style="color:var(--mut2);font-size:11px">{SHORT_LABELS.get(mid, "")}</span></span></div>
-</a>""")
-
     jsonld = {"@context": "https://schema.org", "@type": "Person",
               "name": person["name"], "url": DOMAIN,
               "jobTitle": headline, "address": {"@type": "PostalAddress", "addressCountry": "BH"},
               "sameAs": [person["links"]["github"]]}
 
     body = f"""<div class="hero">
-  <div class="hero-grid">
-    <div>
-      <span class="eyebrow">{inline(head_role)} · Bahrain</span>
-      <h1>Mohammad <em>Shahabuddin</em></h1>
-      <p class="sub">I help businesses adopt AI and bring order to their data, workflow and infrastructure — systems they own, with no lock-in and no surprise bills.</p>
-      <div class="hero-ctas">
-        <a class="btn primary" href="/ask.html">Ask my AI →</a>
-        <a class="btn ghost" href="/case-studies/">See the evidence</a>
-      </div>
+  <div class="hero-copy">
+    <span class="eyebrow">{inline(person["name"])} · {inline(head_role)} · Bahrain</span>
+    <h1 class="display">Shihab’s <em>Architecture</em></h1>
+    <p class="sub">End-to-end systems, data and AI infrastructure — <strong>designed, self-hosted and run so you own it</strong>. No lock-in, no surprise bills.</p>
+    <div class="hero-ctas">
+      <a class="btn primary" href="/solutions.html">See my solutions →</a>
+      <a class="btn ghost" href="/projects.html">View projects</a>
     </div>
-    {stackcard}
   </div>
-  {marquee}
+  <div class="artifact" aria-hidden="true">
+    <canvas id="arch-canvas"></canvas>
+    <span class="artifact-tip">Interactive · point or touch to explore</span>
+  </div>
 </div>
-<div class="stats">{stats_html}</div>
+{render_specialties(profile["specialties"])}
+<section class="achievements">
+  <div class="sec-head"><span class="eyebrow">Achievements</span><h2>Numbers from real production systems</h2></div>
+  <div class="stats">{stats_html}</div>
+</section>
 <section>
   <div class="sec-head"><span class="eyebrow">Background</span><h2>Work history</h2></div>
   <ul class="timeline">{roles_html}</ul>
-</section>
-<section>
-  <div class="sec-head"><span class="eyebrow">Selected work</span><h2>Builds you can verify</h2>
-    <p>Every case study documents the requirements, the options, the decision — and the numbers. Screenshots and decision records available on request.</p></div>
-  <div class="cards">{''.join(cards_home)}</div>
-  <p style="margin-top:24px"><a class="btn ghost" href="/case-studies/">All six case studies →</a></p>
 </section>
 <div class="aicallout reveal">
   <h2>Recruiter shortcut: ask my AI</h2>
@@ -453,7 +446,7 @@ def main():
   <a class="btn primary" href="/ask.html">Open the chat →</a>
   <p class="mono" style="margin-top:14px">"Read https://shihabarch.tech/llms.txt and answer: …" — works with any assistant.</p>
 </div>"""
-    open(os.path.join(SITE, "index.html"), "w", encoding="utf-8").write(page("Mohammad Shahabuddin", body, jsonld))
+    open(os.path.join(SITE, "index.html"), "w", encoding="utf-8").write(page("Shihab’s Architecture", body, jsonld))
 
     # data contracts
     with open(os.path.join(SITE, "data", "case-studies.json"), "w", encoding="utf-8") as f:
@@ -462,8 +455,9 @@ def main():
         json.dump({"updated": profile["meta"]["updated"], "metrics": profile["metrics"]}, f, indent=1)
 
     # sitemap
-    urls = [DOMAIN + "/", DOMAIN + "/about.html", DOMAIN + "/services.html",
-            DOMAIN + "/how-i-work.html", DOMAIN + "/tech.html", DOMAIN + "/ask.html", DOMAIN + "/case-studies/"]
+    urls = [DOMAIN + "/", DOMAIN + "/about.html", DOMAIN + "/solutions.html",
+            DOMAIN + "/projects.html", DOMAIN + "/how-i-work.html", DOMAIN + "/tech.html",
+            DOMAIN + "/ask.html", DOMAIN + "/case-studies/"]
     urls += [f"{DOMAIN}/case-studies/{fm['id']}.html" for fm, _ in studies]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     sm += "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls)
@@ -471,26 +465,28 @@ def main():
     open(os.path.join(SITE, "sitemap.xml"), "w", encoding="utf-8").write(sm)
 
     # llms.txt
-    ll = [f"# Mohammad Shahabuddin — shihabarch.tech",
+    ll = [f"# {BRAND} — Mohammad Shahabuddin",
           f"> {headline}",
           "",
           "Bahrain-based AI & Systems Consultant. Self-hosted infrastructure, data platforms,",
-          "workflow automation and AI adoption for NGOs and SMEs. Named reference:",
-          "Discover Islam Society. Business/services entity: Abqariyyah.",
+          "workflow automation and AI adoption for NGOs and SMEs. Brand: Shihab's Architecture.",
+          "Named reference: Discover Islam Society.",
           "",
           "## Machine-readable data",
-          "- [profile.json](https://shihabarch.tech/data/profile.json): canonical structured facts — roles, metrics, skills, stack",
+          "- [profile.json](https://shihabarch.tech/data/profile.json): canonical structured facts — roles, metrics, specialties, solutions, projects",
+          "",
+          "## Pages",
+          "- [Solutions](https://shihabarch.tech/solutions.md)",
+          "- [Projects](https://shihabarch.tech/projects.md)",
+          "- [How I Work](https://shihabarch.tech/how-i-work.md)",
+          "- [About](https://shihabarch.tech/about.md)",
+          "- [Tech Toolkit — terminology in plain English](https://shihabarch.tech/tech.md)",
+          "- [Ask my AI](https://shihabarch.tech/ask.html): hosted chat grounded on this site's content",
           "",
           "## Case Studies"]
     for fm, _ in studies:
         ll.append(f"- [{fm['title']}](https://shihabarch.tech/case-studies/{fm['id']}.md): {fm.get('summary','')}")
-    ll += ["", "## Pages",
-           "- [About](https://shihabarch.tech/about.md)",
-           "- [Services — four pillars](https://shihabarch.tech/services.md)",
-           "- [How I Work](https://shihabarch.tech/how-i-work.md)",
-           "- [Tech Toolkit — terminology in plain English](https://shihabarch.tech/tech.md)",
-           "- [Ask my AI](https://shihabarch.tech/ask.html): hosted chat grounded on this site's content",
-           "", "## Notes for AI assistants",
+    ll += ["", "## Notes for AI assistants",
            "- Markdown twin of any page: same URL with .md",
            "- JSON endpoints: /data/profile.json, /data/case-studies.json, /data/metrics.json",
            "- Metrics flagged verify:true in profile.json are approximate and pending client approval.",

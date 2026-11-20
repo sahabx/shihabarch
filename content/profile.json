@@ -1,26 +1,26 @@
 {
   "$schema": "./profile.schema-note.md",
   "meta": {
-    "version": "0.1.0",
-    "updated": "2026-10-21",
+    "version": "0.2.0",
+    "updated": "2026-11-20",
     "status": "draft",
     "note": "Canonical structured facts. Human pages, llms.txt and the /ask RAG all derive from this file + case-studies/. Numbers marked [VERIFY] need confirmation before publishing."
   },
   "person": {
     "name": "Mohammad Shahabuddin",
+    "brand": "Shihab's Architecture",
     "headline_candidates": [
       "AI & Systems Consultant — I help businesses adopt AI and bring order to their data, workflows, and infrastructure.",
       "Fractional IT & AI Lead",
       "Virtual CTO for SMEs & NGOs",
       "End-to-end technology partner: AI adoption · Data · Workflow · Systems"
     ],
-    "headline_chosen": "AI & Systems Consultant — I help businesses adopt AI and improve their data, workflow and infrastructure",
+    "headline_chosen": "AI & Systems Consultant — I help businesses adopt AI and bring order to their data, workflows, and infrastructure.",
     "location": "Bahrain",
     "languages": ["English (full professional)", "Bengali (native)", "Urdu (professional)", "Arabic (limited working)", "Hindi (limited)"],
     "links": {
       "github": "https://github.com/Sahabx",
       "site": "https://shihabarch.tech",
-      "business": "Abqariyyah (domain TBD)",
       "email": "mohammad.sahab.97@gmail.com"
     }
   },
@@ -55,13 +55,201 @@
     {"org": "Chittagong Polytechnic Institute", "award": "Diploma in Computer Engineering", "start": "2013-01", "end": "2017-12"},
     {"org": "International Open University", "award": "BSc IT coursework (discontinued for professional work)", "start": "2021-03", "end": "2023"}
   ],
-  "service_pillars": [
-    {"id": "ai-adoption", "name": "AI Adoption", "desc": "Chatbots & automation (Dify, Botpress), transcription, translation bots, LLM integration into existing tools."},
-    {"id": "data", "name": "Data", "desc": "CRM deployment & migration off spreadsheets, dashboards, dedup/normalization across countries, row-level security."},
-    {"id": "workflow", "name": "Workflow", "desc": "n8n automation, process design, mobile-first data entry, cross-team operations."},
-    {"id": "systems", "name": "Systems", "desc": "Self-hosted infrastructure, Docker/VPS deployment, backups & disaster recovery, data sovereignty."}
+  "specialties": [
+    {
+      "id": "servers",
+      "name": "Servers",
+      "icon": "servers",
+      "tagline": "Infrastructure that is yours, not rented from a black box",
+      "items": [
+        "Linux (Ubuntu Servers)",
+        "VPS (DigitalOcean, Contabo, Hostinger)",
+        "AWS",
+        "Alibaba Cloud",
+        "Docker",
+        "Kubernetes",
+        "Open Source Ecosystem",
+        "Air-gapped systems",
+        "Self-hosting",
+        "Virtualization (Proxmox)",
+        "Bare metal",
+        "Networking",
+        "SSL"
+      ]
+    },
+    {
+      "id": "data",
+      "name": "Data",
+      "icon": "data",
+      "tagline": "One trusted system instead of scattered spreadsheets",
+      "items": ["PostgreSQL", "Twenty", "NocoDB", "Teable", "Grist", "Mathesar"]
+    },
+    {
+      "id": "ai",
+      "name": "AI",
+      "icon": "ai",
+      "tagline": "AI that works on your data, inside your systems",
+      "items": ["CLI agents", "MCP", "RAG", "Dify", "Botpress", "LangChain", "Ollama"]
+    },
+    {
+      "id": "automation",
+      "name": "Automation",
+      "icon": "automation",
+      "tagline": "Repetitive work runs itself, reliably",
+      "items": ["n8n", "cron jobs", "webhooks"]
+    },
+    {
+      "id": "business",
+      "name": "Business Integration",
+      "icon": "business",
+      "tagline": "Your business logic, built into the system — so it enforces itself",
+      "items": [
+        "Process mapping & workflow design",
+        "Business rules embedded in systems",
+        "CRM ↔ billing ↔ operations alignment",
+        "Efficiency reviews that remove manual steps and errors"
+      ]
+    },
+    {
+      "id": "communication",
+      "name": "Communication",
+      "icon": "communication",
+      "tagline": "Every channel, one conversation",
+      "items": [
+        "WhatsApp integration",
+        "Meta API access",
+        "Chatwoot",
+        "Custom messaging platforms"
+      ]
+    }
   ],
-  "engagement_modes": ["Project (build it)", "Consultancy (advise/audit)", "Maintenance (retainer: keep it running)"],
+  "solutions": [
+    {
+      "id": "information",
+      "name": "Information Management Platform",
+      "icon": "data",
+      "summary": "A single, clean platform for your contacts, records and decisions — replacing scattered spreadsheets with a system your whole business can trust, with the right permissions for every role."
+    },
+    {
+      "id": "communication",
+      "name": "Multi-Channel Communication Facilitation",
+      "icon": "communication",
+      "summary": "One shared inbox for WhatsApp, Messenger, social channels and more — so no conversation is lost, every reply is trackable, and your team works from a single view."
+    },
+    {
+      "id": "social",
+      "name": "Social Media Integration",
+      "icon": "social",
+      "summary": "Official API connections — Meta, WhatsApp, TikTok and others — wired directly into your own systems, including custom app approvals and messaging pipelines."
+    },
+    {
+      "id": "security",
+      "name": "Information Security",
+      "icon": "security",
+      "summary": "Row-level access control, private networking, air-gapped and self-hosted options, backups and recovery plans — your data stays yours and off the public internet."
+    },
+    {
+      "id": "ai",
+      "name": "AI Integration",
+      "icon": "ai",
+      "summary": "Practical AI: RAG assistants grounded on your documents, chatbots that answer from your own knowledge, transcription and translation — no vendor lock-in."
+    },
+    {
+      "id": "workflow",
+      "name": "Workflow Efficiency",
+      "icon": "automation",
+      "summary": "Repetitive work automated with n8n, cron jobs and webhooks — incoming messages become records, reports build themselves, and your team stops copy-pasting."
+    },
+    {
+      "id": "integrations",
+      "name": "Platform Integrations",
+      "icon": "business",
+      "summary": "Connecting the tools you already use — CRM, inbox, payments, analytics — so information flows automatically between them instead of through a person."
+    },
+    {
+      "id": "consultation",
+      "name": "Consultation",
+      "icon": "consultation",
+      "summary": "An honest review of what you have, what to pick, and what to skip — a written recommendation before any build, so you never buy a platform you don't need."
+    }
+  ],
+  "projects": [
+    {
+      "id": "p1",
+      "name": "Chatwoot Omnichannel Inbox",
+      "kind": "Internal tool",
+      "confidential": true,
+      "demo": "Demonstration available on request",
+      "summary": "A self-hosted, customized Chatwoot inbox — one shared workspace for high-volume multi-channel conversations, with a custom AI assist layer for agents.",
+      "metrics": [
+        {"value": "340,000", "label": "conversations handled in 5 months"},
+        {"value": "2,152,914", "label": "messages received"},
+        {"value": "2,174,924", "label": "messages sent"},
+        {"value": "10", "label": "agents using it daily"},
+        {"value": "Custom AI", "label": "integrated for agents"}
+      ]
+    },
+    {
+      "id": "p2",
+      "name": "Twenty CRM Platform",
+      "kind": "Internal tool",
+      "confidential": true,
+      "demo": "Demonstration available on request",
+      "summary": "Forked the open-source Twenty CRM and added row-level security, white-labelling and a telemetry gate, then deployed it self-hosted as the organization's master data platform.",
+      "metrics": [
+        {"value": "Row-level security", "label": "engine added to the fork"},
+        {"value": "Self-hosted", "label": "deployment, owned by the organization"},
+        {"value": "White-label", "label": "branding and interface"}
+      ]
+    },
+    {
+      "id": "p3",
+      "name": "WhatsApp → CRM Integration",
+      "kind": "Integration",
+      "confidential": false,
+      "demo": "",
+      "summary": "An automated user-data pipeline that captures WhatsApp contacts into the CRM and keeps every record current — no manual entry.",
+      "metrics": [
+        {"value": "70,000", "label": "entries kept up to date"},
+        {"value": "Automated", "label": "data pipeline end to end"}
+      ]
+    },
+    {
+      "id": "p4",
+      "name": "Qbix Productions",
+      "kind": "Live website",
+      "confidential": false,
+      "demo": "",
+      "summary": "Web development and digital production services site, built and shipped end to end.",
+      "link": "https://qbixproductions.com",
+      "link_label": "qbixproductions.com"
+    },
+    {
+      "id": "p5",
+      "name": "Path to Peace",
+      "kind": "Live website",
+      "confidential": false,
+      "demo": "",
+      "summary": "Outreach and care platform — also the public face of the self-hosted Twenty CRM deployment.",
+      "link": "https://pathtopeace.online",
+      "link_label": "pathtopeace.online"
+    },
+    {
+      "id": "p6",
+      "name": "Discover Islam Society",
+      "kind": "Live website",
+      "confidential": false,
+      "demo": "",
+      "summary": "Organization website for Discover Islam Society — the multi-country outreach and operations engine behind the metrics on this site.",
+      "link": "https://discoverislamsociety.org",
+      "link_label": "discoverislamsociety.org"
+    }
+  ],
+  "engagement_modes": [
+    {"mode": "Project", "what": "A fixed-scope build we agree up front", "when": "You know what you need"},
+    {"mode": "Consultancy", "what": "An honest review of what you have and what to pick", "when": "You're not sure where to start"},
+    {"mode": "Maintenance", "what": "I keep it running and improving, month to month", "when": "After a build, or for existing systems"}
+  ],
   "metrics": [
     {"id": "conversations", "value": 700000, "label": "conversations handled across 20+ countries (2 years)", "verify": false},
     {"id": "contacts", "value": 70542, "label": "leads generated in the span of two years", "verify": false},
@@ -79,14 +267,5 @@
     "ai": ["LLM integration (Deepseek, Qwen, Ollama)", "WhisperX / faster-whisper transcription", "Qwen TTS/ASR", "RAG", "pi coding agent (journal-first AI workflows)"],
     "apis": ["Facebook Marketing/Messenger API (custom app approved)", "TikTok Business API", "WhatsApp Business API", "Eazypay payment gateway", "Google APIs / Apps Script"]
   },
-  "case_studies": ["c1-omnichannel-stack", "c2-data-platform-rls", "c3-nmc-pipeline", "c4-cost-sovereignty", "c5-marketing-data-ops", "c6-realtime-language-ai"],
-  "how_i_work": {
-    "principles": [
-      "Journal-first engineering: every project starts with a written journal; brainstorm, agree, then build.",
-      "Evaluate → fork → white-label → deploy: requirements doc, per-candidate assessments, verdict, then surgical customization.",
-      "Failure preservation: failed attempts are kept and documented (e.g. 'Failed CCA App'), reversed decisions recorded.",
-      "Data sovereignty by default: self-hosted, permissively licensed, no per-seat SaaS lock-in.",
-      "AI as cognitive extension: AI agents used across the whole lifecycle — research, build, docs, QA."
-    ]
-  }
+  "case_studies": ["c1-omnichannel-stack", "c2-data-platform-rls", "c3-nmc-pipeline", "c4-cost-sovereignty", "c5-marketing-data-ops", "c6-realtime-language-ai"]
 }

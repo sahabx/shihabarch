@@ -37,16 +37,17 @@
 .forai li{margin:6px 0}
 </style></head>
 <body>
-<nav>
-  <a class="logo" href="/">MS<span>◆</span></a>
+<nav class="site-nav">
+  <a class="logo" href="/">Shihab’s <span>Architecture</span></a>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="navlinks">
-    <a href="/case-studies/">Case Studies</a>
-    <a href="/services.html">Services</a>
+    <a href="/solutions.html">Solutions</a>
+    <a href="/projects.html">Projects</a>
     <a href="/how-i-work.html">How I Work</a>
     <a href="/about.html">About</a>
     <a href="/tech.html">Tech</a>
+    <a class="cta" href="/ask.html">Ask my AI</a>
   </div>
-  <a class="cta" href="/ask.html">Ask my AI</a>
 </nav>
 <div class="hero-mini">
   <span class="eyebrow">Grounded Q&amp;A · self-hosted · zero trackers</span>
@@ -79,7 +80,7 @@
   </ul>
 </div>
 <footer><div class="inner">
-  <p><b style="font-family:'Space Grotesk'">Mohammad Shahabuddin</b> · AI &amp; Systems Consultant · Bahrain</p>
+  <p><b style="font-family:'Space Grotesk'">Shihab’s Architecture</b> · Mohammad Shahabuddin · Bahrain</p>
   <p class="mono">Machine-readable: <a href="/llms.txt">/llms.txt</a> · <a href="/data/profile.json">/data/profile.json</a> · append <code>.md</code> to any page</p>
 </div></footer>
 
@@ -130,7 +131,7 @@ let kb = null; // [{title, url, text}]
 async function loadKb() {
   if (kb) return kb;
   kb = [];
-  const pages = ["/about.md", "/services.md", "/how-i-work.md", "/tech.md"];
+  const pages = ["/about.md", "/solutions.md", "/projects.md", "/how-i-work.md", "/tech.md"];
   try { const j = JSON.parse(await (await fetch("/data/case-studies.json")).text()); pages.push(...(j.case_studies || []).map(c => "/case-studies/" + c.id + ".md")); } catch {}
   pages.push("/data/profile.json");
   for (const p of pages) {

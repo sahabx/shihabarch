@@ -18,6 +18,9 @@ For the curious and the technical reviewer: the actual tools behind the work, ex
 | Traefik | Routes visitors to the right app and handles secure connections automatically. |
 | Tailscale | A private network so servers talk to each other without being on the public internet. |
 | Kubernetes | Runs and scales containerized apps across many servers. |
+| Proxmox | Turns a physical server into multiple isolated virtual machines. |
+| Air-gapped | A system kept fully off the public internet. |
+| SSL / HTTPS | Encrypts the connection between a visitor and the server. |
 
 ## Data — where information lives
 
@@ -28,6 +31,7 @@ For the curious and the technical reviewer: the actual tools behind the work, ex
 | Twenty (CRM) | An open-source customer-relationship system — a smart address book plus a sales pipeline. |
 | Row-level security | A rule so each person sees only the rows that belong to them. |
 | OpenRefine | A tool for cleaning messy data (duplicates, bad formats). |
+| Teable / Grist / Mathesar | Open-source database tools with spreadsheet-style interfaces. |
 | Grafana | Turns live data into dashboards and charts. |
 
 ## Automation & AI
@@ -40,6 +44,10 @@ For the curious and the technical reviewer: the actual tools behind the work, ex
 | LLM | "Large language model" — the engine that writes answers (e.g. DeepSeek, Qwen). |
 | RAG | "Retrieval-augmented generation" — the AI looks up your own documents before answering, so it doesn't invent facts. |
 | WhisperX | Turns long audio into text. |
+| MCP | A standard way to let AI assistants use your own tools and data. |
+| CLI agents | AI agents that work in the terminal — running commands and code. |
+| LangChain | A toolkit for building AI applications that chain models and data. |
+| Cron job | A task that runs automatically on a schedule. |
 | TTS / ASR | Text-to-speech / speech-to-text. |
 
 ## Connections & APIs
