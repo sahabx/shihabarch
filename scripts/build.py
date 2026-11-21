@@ -147,24 +147,28 @@ def step_icon(i):
     }
     return icons.get(i, icons[1])
 
-MAP_SVG = """<svg class="map-svg" viewBox="0 0 640 320" role="img" aria-label="Stylized map showing Bahrain">
+MAP_SVG = """<svg class="map-svg" viewBox="0 0 640 360" role="img" aria-label="Stylized map of the Arabian Gulf showing Bahrain">
   <defs>
     <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0c1120"/><stop offset="1" stop-color="#0a0f1d"/>
     </linearGradient>
   </defs>
-  <rect width="640" height="320" fill="url(#sea)"/>
+  <rect width="640" height="360" fill="url(#sea)"/>
   <g class="map-grid" stroke="#1e2a44" stroke-width="1" fill="none">
-    <path d="M0 80h640M0 160h640M0 240h640M160 0v320M320 0v320M480 0v320"/>
+    <path d="M0 90h640M0 180h640M0 270h640M160 0v360M320 0v360M480 0v360"/>
   </g>
-  <path class="land" d="M32 300 L70 238 L54 182 L130 150 L120 90 L210 70 L250 122 L236 202 L294 232 L292 300 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
-  <path class="land" d="M470 300 L470 216 L430 192 L406 206 L402 254 L432 300 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
-  <path class="land bahrain" d="M374 138 l14 -4 8 12 -6 14 -16 4 -8 -12 z" fill="#151e31" stroke="#4da3ff" stroke-width="2"/>
-  <circle class="pin-ring" cx="382" cy="150" r="30" fill="none" stroke="#4da3ff" stroke-width="1.5"/>
-  <circle class="pin-ring r2" cx="382" cy="150" r="46" fill="none" stroke="#4da3ff" stroke-width="1"/>
-  <circle cx="382" cy="150" r="6" fill="#8b5cf6" stroke="#fff" stroke-width="2"/>
-  <text x="382" y="112" text-anchor="middle" fill="#e8edf6" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="700">Bahrain</text>
-  <text x="382" y="130" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="11">26.1°N, 50.6°E</text>
+  <path class="land" d="M0 0 H400 V40 H440 C430 90 435 70 425 120 C400 140 395 150 400 180 C420 210 415 250 430 300 C440 330 460 350 500 360 H0 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
+  <path class="land" d="M425 282 C436 240 446 208 456 166 C474 200 484 242 488 282 C468 296 444 296 425 282 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
+  <path class="land bahrain" d="M398 150 L413 137 L421 152 L408 165 Z" fill="#151e31" stroke="#4da3ff" stroke-width="2"/>
+  <circle class="pin-ring" cx="410" cy="150" r="26" fill="none" stroke="#4da3ff" stroke-width="1.5"/>
+  <circle class="pin-ring r2" cx="410" cy="150" r="42" fill="none" stroke="#4da3ff" stroke-width="1"/>
+  <circle cx="410" cy="150" r="6" fill="#8b5cf6" stroke="#fff" stroke-width="2"/>
+  <text x="410" y="110" text-anchor="middle" fill="#e8edf6" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="700">Bahrain</text>
+  <text x="410" y="127" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="10.5">26.1°N, 50.6°E</text>
+  <text x="190" y="170" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="12">Saudi Arabia</text>
+  <text x="470" y="318" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="11">Qatar</text>
+  <text x="490" y="348" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="11">UAE</text>
+  <text x="532" y="96" text-anchor="middle" fill="#5d6a82" font-family="Inter, sans-serif" font-size="11" letter-spacing="1">PERSIAN GULF</text>
 </svg>"""
 
 # ---------- page shell ----------
@@ -290,9 +294,9 @@ def render_engagement(modes):
   </div>
 </article>""")
     return f"""<div class="engage">
-  <div class="sec-head"><span class="eyebrow">Engagement</span><h2>How we engage</h2></div>
+  <div class="sec-head"><span class="eyebrow">Engagement</span><h2>How I engage</h2></div>
   <div class="engage-grid">{''.join(cards)}</div>
-  <p class="engage-note">Pricing on request — simple, and stated before we start.</p>
+  <p class="engage-note">Pricing on request — simple, and stated before I start.</p>
 </div>"""
 
 def render_how_i_work(body, modes):
@@ -317,12 +321,12 @@ def render_how_i_work(body, modes):
         m = re.match(r"## (.+?)\n([\s\S]*)", sec)
         if not m: continue
         heading = m.group(1).strip(); content = m.group(2).strip()
-        if heading.lower().startswith("how we engage"):
+        if heading.lower().startswith("how i engage"):
             engagement = render_engagement(modes)
         elif heading.lower().startswith("built for lean"):
             budget = f"""<div class="budget reveal">
   <div class="budget-icon">{icon("data")}</div>
-  <div class="budget-body">{md_to_html(content)}</div>
+  <div class="budget-body"><h3>{inline(heading)}</h3>{md_to_html(content)}</div>
 </div>"""
     return f"""<div class="page-head">
   <span class="eyebrow">Method</span>

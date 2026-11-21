@@ -243,7 +243,7 @@
       "kind": "Integration",
       "confidential": true,
       "demo": "Demonstration available on request",
-      "tags": ["Actively monitoring 34 groups"],
+      "tags": [],
       "summary": "An automated user-data pipeline that captures WhatsApp contacts into the CRM and keeps every record current — no manual entry.",
       "metrics": [
         {"value": "70,000", "label": "entries kept up to date"},
@@ -253,7 +253,7 @@
     }
   ],
   "engagement_modes": [
-    {"mode": "Project", "what": "A fixed-scope build we agree up front", "when": "You know what you need"},
+    {"mode": "Project", "what": "A fixed-scope build I deliver up front", "when": "You know what you need"},
     {"mode": "Consultancy", "what": "An honest review of what you have and what to pick", "when": "You're not sure where to start"},
     {"mode": "Maintenance", "what": "I keep it running and improving, month to month", "when": "After a build, or for existing systems"}
   ],
