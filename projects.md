@@ -39,7 +39,6 @@ Forked the open-source Twenty CRM and added row-level security, white-labelling 
 
 ## WhatsApp → CRM Integration — Integration
 An automated user-data pipeline that captures WhatsApp contacts into the CRM and keeps every record current — no manual entry.
-- Tag: Actively monitoring 34 groups
 - 70,000 — entries kept up to date
 - Automated — data pipeline end to end
 - 34 — groups actively monitored
