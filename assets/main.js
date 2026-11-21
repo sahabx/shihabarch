@@ -54,8 +54,6 @@
     var w = 0, h = 0, dpr = 1, nodes = [], raf = null;
     var pointer = { x: -1e4, y: -1e4, active: false };
     var palette = ["77,163,255", "139,92,246", "192,132,252", "52,211,153"];
-    var lastScrollY = window.scrollY;
-    var scrollBoost = 0;
 
     // Position the canvas to sit exactly behind the first section of the page
     // (the hero on the landing, otherwise the page header), below the sticky nav.
@@ -99,13 +97,8 @@
     }
 
     function draw(t) {
-      var sy = window.scrollY;
-      var svel = sy - lastScrollY;
-      lastScrollY = sy;
-      scrollBoost += svel * 0.12;
-      scrollBoost *= 0.88;
-      var parallax = sy * 0.35 + scrollBoost;
       ctx.clearRect(0, 0, w, h);
+      var parallax = window.scrollY * 0.35;
       var i, j, a, b;
 
       // edges between close nodes

@@ -260,6 +260,7 @@
   "metrics": [
     {"id": "conversations", "value": 700000, "label": "conversations handled across 20+ countries (2 years)", "verify": false},
     {"id": "contacts", "value": 70542, "label": "leads generated in the span of two years", "verify": false},
+    {"id": "messages", "value": "2 Million+", "label": "messages processed across channels", "verify": false},
     {"id": "reach", "value": "≈800,000/month", "label": "average monthly campaign reach (3,000 BHD managed budget)", "verify": false},
     {"id": "saved_bhd", "value": 8000, "label": "BHD saved in just one project (vs. the vendor quote)", "verify": false},
     {"id": "saved_usd_yr", "value": 3000, "label": "USD/year of recurring software subscriptions eliminated", "verify": false},
