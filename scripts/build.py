@@ -18,6 +18,7 @@ BRAND = "Shihab’s Architecture"
 SHORT_LABELS = {
     "conversations": "conversations handled",
     "contacts": "leads generated in two years",
+    "messages": "messages processed",
     "reach": "avg. monthly campaign reach",
     "saved_bhd": "BHD saved in just one project",
     "saved_usd_yr": "USD/yr of subscriptions eliminated",
@@ -25,7 +26,7 @@ SHORT_LABELS = {
     "agents": "team members supported",
     "downtime": "downtime during a platform lock-out",
 }
-HOME_STATS = ["conversations", "contacts", "saved_bhd", "reach", "countries", "downtime"]
+HOME_STATS = ["conversations", "contacts", "messages", "saved_bhd", "saved_usd_yr", "reach", "countries", "downtime"]
 
 # ---------- frontmatter ----------
 def parse_md(path):
@@ -147,7 +148,7 @@ def step_icon(i):
     }
     return icons.get(i, icons[1])
 
-MAP_SVG = """<svg class="map-svg" viewBox="0 0 640 360" role="img" aria-label="Stylized map of the Arabian Gulf showing Bahrain">
+MAP_SVG = """<svg class="map-svg" viewBox="0 0 640 360" role="img" aria-label="Stylized map of the Arabian Peninsula showing Bahrain">
   <defs>
     <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0c1120"/><stop offset="1" stop-color="#0a0f1d"/>
@@ -157,18 +158,21 @@ MAP_SVG = """<svg class="map-svg" viewBox="0 0 640 360" role="img" aria-label="S
   <g class="map-grid" stroke="#1e2a44" stroke-width="1" fill="none">
     <path d="M0 90h640M0 180h640M0 270h640M160 0v360M320 0v360M480 0v360"/>
   </g>
-  <path class="land" d="M0 0 H400 V40 H440 C430 90 435 70 425 120 C400 140 395 150 400 180 C420 210 415 250 430 300 C440 330 460 350 500 360 H0 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
-  <path class="land" d="M425 282 C436 240 446 208 456 166 C474 200 484 242 488 282 C468 296 444 296 425 282 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
-  <path class="land bahrain" d="M398 150 L413 137 L421 152 L408 165 Z" fill="#151e31" stroke="#4da3ff" stroke-width="2"/>
-  <circle class="pin-ring" cx="410" cy="150" r="26" fill="none" stroke="#4da3ff" stroke-width="1.5"/>
-  <circle class="pin-ring r2" cx="410" cy="150" r="42" fill="none" stroke="#4da3ff" stroke-width="1"/>
-  <circle cx="410" cy="150" r="6" fill="#8b5cf6" stroke="#fff" stroke-width="2"/>
-  <text x="410" y="110" text-anchor="middle" fill="#e8edf6" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="700">Bahrain</text>
-  <text x="410" y="127" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="10.5">26.1°N, 50.6°E</text>
-  <text x="190" y="170" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="12">Saudi Arabia</text>
-  <text x="470" y="318" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="11">Qatar</text>
-  <text x="490" y="348" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="11">UAE</text>
-  <text x="532" y="96" text-anchor="middle" fill="#5d6a82" font-family="Inter, sans-serif" font-size="11" letter-spacing="1">PERSIAN GULF</text>
+  <path class="land" d="M470 0 H640 V48 H505 L462 16 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
+  <path class="land" d="M118 40 L348 40 L408 96 L430 150 L452 220 L420 300 L300 342 L180 322 L128 240 L104 132 L112 70 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
+  <path class="land" d="M398 118 L398 172 L428 178 L436 150 L428 118 Z" fill="#101726" stroke="#1e2a44" stroke-width="2"/>
+  <path class="land bahrain" d="M384 102 L396 91 L405 103 L393 113 Z" fill="#151e31" stroke="#4da3ff" stroke-width="2"/>
+  <circle class="pin-ring" cx="395" cy="102" r="22" fill="none" stroke="#4da3ff" stroke-width="1.5"/>
+  <circle class="pin-ring r2" cx="395" cy="102" r="36" fill="none" stroke="#4da3ff" stroke-width="1"/>
+  <circle cx="395" cy="102" r="5.5" fill="#8b5cf6" stroke="#fff" stroke-width="2"/>
+  <text x="395" y="74" text-anchor="middle" fill="#e8edf6" font-family="Space Grotesk, sans-serif" font-size="15" font-weight="700">Bahrain</text>
+  <text x="395" y="90" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="10">26.1°N, 50.6°E</text>
+  <text x="225" y="180" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="11">Saudi Arabia</text>
+  <text x="452" y="196" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="10">Qatar</text>
+  <text x="445" y="238" text-anchor="middle" fill="#8b98af" font-family="Inter, sans-serif" font-size="10">UAE</text>
+  <text x="507" y="70" text-anchor="middle" fill="#5d6a82" font-family="Inter, sans-serif" font-size="10" letter-spacing="1">PERSIAN GULF</text>
+  <text x="512" y="330" text-anchor="middle" fill="#5d6a82" font-family="Inter, sans-serif" font-size="10" letter-spacing="1">ARABIAN SEA</text>
+  <text x="68" y="180" text-anchor="middle" fill="#5d6a82" font-family="Inter, sans-serif" font-size="10" letter-spacing="1" transform="rotate(-90 68 180)">RED SEA</text>
 </svg>"""
 
 # ---------- page shell ----------
