@@ -9,7 +9,7 @@ I'm Mohammad Shahabuddin, an AI & Systems Consultant based in Bahrain. I help or
 
 ## Where I'm based
 
-Based in Bahrain, serving clients remotely across the Gulf and beyond. The case studies below are the proof of how I work.
+Based in Bahrain, serving clients remotely across the Gulf and beyond. See the work on the [Projects](/projects.html) page.
 
 ## Contact
 
